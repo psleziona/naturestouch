@@ -29,7 +29,7 @@ public class AuthService {
         user.setRole(Role.CLIENT);
         User createdClient = userService.setUser(user);
         CustomUserDetails userDetails = new CustomUserDetails(createdClient.getEmail(), createdClient.getPassword(), Role.CLIENT);
-        String token = jwtService.generateToken(userDetails, user.getRole().toString(), user.getId());
+        String token = jwtService.generateToken(userDetails, user.getRole().toString(), user.getIdUser());
         return AuthResponse.builder().token(token).build();
     }
 
@@ -44,7 +44,7 @@ public class AuthService {
         else
             throw new UsernameNotFoundException("User not found with username: " + email);
 
-        var token = jwtService.generateToken(user, user.getRole(), u.getId());
+        var token = jwtService.generateToken(user, user.getRole(), u.getIdUser());
         return AuthResponse.builder()
                 .token(token)
                 .build();

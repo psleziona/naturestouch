@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idUser;
     private String firstName;
     private String lastName;
     private String email;
@@ -21,4 +21,6 @@ public class User {
     private String zipcode;
     private Role role;
     @OneToOne
+    @JoinColumn(name = "id_cart")
+    private Cart cart;
 }
