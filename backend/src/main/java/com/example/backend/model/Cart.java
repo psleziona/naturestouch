@@ -14,6 +14,6 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCart;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cart")
     private List<CartProduct> products;
 }

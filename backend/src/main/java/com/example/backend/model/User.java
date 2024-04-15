@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity(name = "users")
 @NoArgsConstructor(force = true)
@@ -23,4 +25,6 @@ public class User {
     @OneToOne
     @JoinColumn(name = "id_cart")
     private Cart cart;
+    @OneToMany(mappedBy = "order")
+    private List<Order> orders;
 }

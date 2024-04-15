@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -16,4 +18,5 @@ public class Comment {
     private Integer idComment;
     private String comment;
     private Integer rate;
+    private LocalDateTime dateTime;
 }

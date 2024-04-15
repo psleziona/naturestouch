@@ -1,11 +1,11 @@
 package com.example.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -14,4 +14,12 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idOrder;
+    private LocalDateTime dateTime;
+    private boolean isPaid;
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User buyer;
+    @OneToMany(mappedBy = "order")
+    private List<CartProduct> products;
+
 }
