@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-public class CartProduct {
+public class QuantityProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCartProduct;
@@ -17,4 +17,10 @@ public class CartProduct {
     private Product product;
     @NotNull
     private Integer quantity;
+    @ManyToOne
+    @JoinColumn(name = "id_cart")
+    private Cart cart;
+    @ManyToOne
+    @JoinColumn(name = "id_order")
+    private Order order;
 }

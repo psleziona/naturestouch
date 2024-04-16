@@ -20,6 +20,7 @@ public class Order {
     @JoinColumn(name = "id_user")
     private User buyer;
     @OneToMany(mappedBy = "order")
-    private List<CartProduct> products;
+    private List<QuantityProduct> products;
+
 
 }

@@ -28,4 +28,5 @@ public class Product {
     private LocalDate dateOfLowestPrice;
     @OneToMany(mappedBy = "product")
     private List<Comment> comments;
+    //dodać jeszcze pole z nazwą zdjęcia czy coś ;d
 }

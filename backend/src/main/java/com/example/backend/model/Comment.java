@@ -1,9 +1,6 @@
 package com.example.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,4 +16,7 @@ public class Comment {
     private String comment;
     private Integer rate;
     private LocalDateTime dateTime;
+    @ManyToOne
+    @JoinColumn(name = "id_product")
+    private Product product;
 }

@@ -1,7 +1,6 @@
 package com.example.backend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,5 +14,5 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCart;
     @OneToMany(mappedBy = "cart")
-    private List<CartProduct> products;
+    private List<QuantityProduct> products;
 }
