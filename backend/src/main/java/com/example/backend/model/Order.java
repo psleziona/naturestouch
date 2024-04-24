@@ -15,7 +15,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idOrder;
     private LocalDateTime dateTime;
-    private boolean isPaid;
+    private OrderStatus status;
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User buyer;

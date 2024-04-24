@@ -30,5 +30,8 @@ public class Product {
     private List<Comment> comments;
     @NotNull
     private ProductCategory category;
-    //dodać jeszcze pole z nazwą zdjęcia czy coś ;d
+    @NotNull
+    private String ingredients;
+    @NotNull
+    private String filename;
 }
