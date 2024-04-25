@@ -1,6 +1,7 @@
 package com.example.backend.auth;
 
 import com.example.backend.config.JwtService;
+import com.example.backend.model.Cart;
 import com.example.backend.model.Role;
 import com.example.backend.model.User;
 import com.example.backend.repository.UserRepository;
@@ -27,6 +28,7 @@ public class AuthService {
     public AuthResponse register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.CLIENT);
+        user.setCart(new Cart());
         User createdClient = userService.setUser(user);
         CustomUserDetails userDetails = new CustomUserDetails(createdClient.getEmail(), createdClient.getPassword(), Role.CLIENT);
         String token = jwtService.generateToken(userDetails, user.getRole().toString(), user.getIdUser());

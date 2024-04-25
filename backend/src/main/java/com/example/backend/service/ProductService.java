@@ -12,4 +12,7 @@ public interface ProductService {
     List<Product> getProducts();
     void addProduct(Product product);
     void deleteProduct(Integer idProduct);
+    void increaseProductQuantity(Integer idProduct, Integer quantity);
+    void decreaseProductQuantity(Integer idProduct, Integer quantity);
+    void changePrice(Integer idProduct, Double price);
 }

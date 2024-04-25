@@ -2,16 +2,21 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +27,6 @@ public class Product {
     private Double price;
     @NotNull
     private Integer quantity;
-    @NotNull
-    private Double lowestPriceInLast30Days;
-    @NotNull
-    private LocalDate dateOfLowestPrice;
     @OneToMany(mappedBy = "product")
     private List<Comment> comments;
     @NotNull
@@ -34,4 +35,6 @@ public class Product {
     private String ingredients;
     @NotNull
     private String filename;
+    @OneToMany(mappedBy = "product")
+    private List<ProductPriceHistory> priceHistories;
 }

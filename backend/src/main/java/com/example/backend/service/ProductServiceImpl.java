@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Product;
+import com.example.backend.model.ProductPriceHistory;
 import com.example.backend.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,36 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void changePrice(Integer idProduct, Double price) {
+        productRepository.findById(idProduct)
+                .ifPresent(p -> {
+                    p.setPrice(price);
+                    ProductPriceHistory priceHistory = new ProductPriceHistory(p, price);
+                    p.getPriceHistories().add(priceHistory);
+                    productRepository.save(p);
+                });
+    }
+
+    @Override
     public void deleteProduct(Integer idProduct) {
         productRepository.deleteProductByIdProduct(idProduct);
+    }
+
+    @Override
+    public void increaseProductQuantity(Integer idProduct, Integer quantity) {
+        productRepository.findById(idProduct)
+                .ifPresent(p -> {
+                    p.setQuantity(p.getQuantity() + quantity);
+                    productRepository.save(p);
+                });
+    }
+
+    @Override
+    public void decreaseProductQuantity(Integer idProduct, Integer quantity) {
+        productRepository.findById(idProduct)
+                .ifPresent(p -> {
+                    p.setQuantity(p.getQuantity() - quantity);
+                    productRepository.save(p);
+                });
     }
 }

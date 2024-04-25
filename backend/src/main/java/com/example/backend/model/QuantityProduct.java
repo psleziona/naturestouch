@@ -23,4 +23,22 @@ public class QuantityProduct {
     @ManyToOne
     @JoinColumn(name = "id_order")
     private Order order;
+
+    public QuantityProduct(Product p) {
+        this.product = p;
+        this.quantity = 1;
+    }
+
+    public QuantityProduct(Product p, Integer quantity) {
+        this.product = p;
+        this.quantity = quantity;
+    }
+
+    public void increaseQuantity() {
+        quantity++;
+    }
+
+    public void decreaseQuantity() {
+        quantity--;
+    }
 }
