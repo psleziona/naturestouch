@@ -38,6 +38,11 @@ export class AuthService {
     return !!this.currentUserSubject.value;
   }
 
+  isAdministrator(): boolean {
+    const currentUser = this.currentUserSubject.value;
+    return currentUser && currentUser.role === 'ADMIN';
+  }
+
   getToken(): string {
     const currentUser = this.currentUserSubject.value;
     return currentUser ? currentUser.token : null;
