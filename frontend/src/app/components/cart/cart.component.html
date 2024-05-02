@@ -1,1 +1,14 @@
-<p>cart works!</p>
+<div class="cart-container">
+  <h2>Twój Koszyk</h2>
+  <div *ngIf="cartItems.length === 0">Twój koszyk jest pusty!</div>
+  <ul *ngIf="cartItems.length > 0">
+    <li *ngFor="let item of cartItems">
+      <img [src]="item.product.filename" alt="{{ item.product.name }}" class="cart-item-image">
+      <div>{{ item.product.name }} - ${{ item.product.price }} ({{ item.quantity }})</div>
+      <button (click)="changeQuantity(item.idCartProduct, item.quantity + 1)">+</button>
+      <button (click)="changeQuantity(item.idCartProduct, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
+      <button (click)="removeFromCart(item.idCartProduct)">Usuń</button>
+    </li>
+  </ul>
+  <div class="total">Całkowity koszt: {{ total }} zł</div>
+</div>
