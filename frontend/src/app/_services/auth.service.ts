@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {User} from "../_models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +46,5 @@ export class AuthService {
   getToken(): string {
     const currentUser = this.currentUserSubject.value;
     return currentUser ? currentUser.token : null;
-  }
-  public get currentUser(): Observable<User> {
-    return this.currentUserSubject.asObservable();
   }
 }
