@@ -35,11 +35,9 @@ export class OrderFormComponent implements OnInit {
           firstName: [user.firstName, Validators.required],
           lastName: [user.lastName, Validators.required],
           email: [user.email, [Validators.required, Validators.email]],
-          address: this.formBuilder.group({
-            street: ['', Validators.required],
-            city: ['', Validators.required],
-            zipCode: ['', Validators.required]
-          }),
+          street: ['', Validators.required],
+          city: ['', Validators.required],
+          zipCode: ['', Validators.required],
           paymentMethod: ['', Validators.required]
         });
       }
