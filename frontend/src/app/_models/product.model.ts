@@ -8,5 +8,6 @@ export interface Product {
   category: string;
   ingredients: string;
   filename: string;
+  newPrice?: number;
   comments?: Comment[];
 }

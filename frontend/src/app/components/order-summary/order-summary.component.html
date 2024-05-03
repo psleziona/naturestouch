@@ -1,1 +1,43 @@
-<p>order-summary works!</p>
+<link href="order-summary.component.css" rel="stylesheet">
+<meta charset="UTF-8">
+<div class="container mt-5">
+  <h2 class="mb-4">Podsumowanie zamówienia</h2>
+  <div *ngIf="order; else loading" class="card">
+    <div class="card-body">
+      <h3 class="card-title">Dane zamawiającego:</h3>
+      <p><strong>Imię:</strong> {{ order.buyer.firstName }}</p>
+      <p><strong>Nazwisko:</strong> {{ order.buyer.lastName }}</p>
+      <p><strong>Email:</strong> {{ order.buyer.email }}</p>
+      <p><strong>Adres:</strong> {{ order.buyer.street }}, {{ order.buyer.city }}, {{ order.buyer.zipcode }}</p>
+      <p><strong>Metoda płatności:</strong> {{ order.paymentMethod }}</p>
+      <p><strong>Status zamówienia:</strong> {{ order.status}}</p>
+
+      <h3 class="card-title">Produkty:</h3>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Nazwa produktu</th>
+          <th>Ilość</th>
+          <th>Cena za sztukę</th>
+          <th>Całkowity koszt</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of order.products">
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.product.price | currency: 'PLN' }}</td>
+          <td>{{ (item.quantity * item.product.price) | currency: 'PLN' }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <p class="font-weight-bold">Suma całkowita: {{ getTotal() | currency: 'PLN' }}</p>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="text-center">
+      <span class="spinner-border text-primary" role="status"></span>
+      <p>Ładowanie danych...</p>
+    </div>
+  </ng-template>
+</div>

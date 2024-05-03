@@ -13,6 +13,7 @@ import {ImageService} from "./_services/image.service";
 import {AuthInterceptor} from "./_interceptor/auth.interceptor";
 import {AppRoutingModule} from "./app-routing.module";
 import {ReactiveFormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    CommonModule
 
 
   ],

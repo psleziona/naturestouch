@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {AuthService} from "../../_services/auth.service";
 import {User} from "../../_models/user.model";
 import {NgIf} from "@angular/common";
+import {OrderService} from "../../_services/order.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-order-form',
@@ -20,7 +22,9 @@ export class OrderFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private orderService: OrderService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -44,9 +48,18 @@ export class OrderFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.orderForm?.valid) {
-      console.log('Submitting order:', this.orderForm.value);
+      this.orderService.createOrder(this.orderForm.value).subscribe(
+        order => {
+          console.log('Order created successfully.');
+          this.router.navigate(['/order-summary', order.idOrder]);
+        },
+        error => {
+          console.error('An error occurred while creating order:', error);
+        }
+      );
     } else {
       alert('Formularz jest wypełniony nieprawidłowo');
     }
   }
+
 }

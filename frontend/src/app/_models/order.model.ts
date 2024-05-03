@@ -8,4 +8,5 @@ export interface Order {
   status: OrderStatus;
   buyer: User;
   products: QuantityProduct[];
+  paymentMethod: string;
 }
