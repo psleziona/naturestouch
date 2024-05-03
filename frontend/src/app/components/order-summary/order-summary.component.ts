@@ -46,4 +46,5 @@ export class OrderSummaryComponent implements OnInit {
     if (!this.order || !this.order.products) return 0;
     return this.order.products.reduce((total, item) => total + (item.quantity * item.product.price), 0);
   }
+
 }
