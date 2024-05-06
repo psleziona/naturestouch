@@ -31,6 +31,10 @@ export class AuthService {
     this.currentUserSubject.next(null);
   }
 
+  register(user: User) {
+    return this.http.post<User>(`${this.apiUrl}/register`, user);
+  }
+
   public get currentUserValue(): any {
     return this.currentUserSubject.value;
   }

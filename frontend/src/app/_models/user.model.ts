@@ -1,9 +1,10 @@
 import { Cart } from './cart.model';
 import { Order } from './order.model';
 import { Role } from './role.enum';
+import {Product} from "./product.model";
 
 export interface User {
-  idUser: number;
+  idUser?: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -12,7 +13,8 @@ export interface User {
   houseNumber: string;
   city: string;
   zipcode: string;
-  role: Role;
+  role?: Role;
   cart?: Cart;
   orders?: Order[];
+  observed?: Product[]
 }
