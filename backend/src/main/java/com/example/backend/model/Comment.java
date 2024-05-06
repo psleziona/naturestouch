@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,6 @@ public class Comment {
     private LocalDateTime dateTime;
     @ManyToOne
     @JoinColumn(name = "id_product")
+    @JsonIgnore
     private Product product;
 }

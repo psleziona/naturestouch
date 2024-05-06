@@ -12,6 +12,7 @@ public interface ProductService {
     List<Product> getProducts();
     List<Product> getObservedProducts();
     void addProduct(Product product);
+    void addProductToObserved(Integer idProduct);
     void deleteProduct(Integer idProduct);
     void increaseProductQuantity(Integer idProduct, Integer quantity);
     void decreaseProductQuantity(Integer idProduct, Integer quantity);

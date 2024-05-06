@@ -1,5 +1,7 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +20,10 @@ public class Order {
     private OrderStatus status;
     @ManyToOne
     @JoinColumn(name = "id_user")
+    @JsonIgnore
     private User buyer;
     @OneToMany(mappedBy = "order")
+    @JsonIgnoreProperties({"cart", "order"})
     private List<QuantityProduct> products;
 
 

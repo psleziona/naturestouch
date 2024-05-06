@@ -31,6 +31,12 @@ public class ProductController {
         return productService.getObservedProducts();
     }
 
+    @PostMapping("/products/observed/{idProduct}")
+    ResponseEntity<Void> addToObserved(@PathVariable Integer idProduct) {
+        productService.addProductToObserved(idProduct);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     @PostMapping("/products")
     ResponseEntity<Void> addProduct(@RequestBody Product product) {
         productService.addProduct(product);

@@ -1,5 +1,7 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,7 @@ public class ProductPriceHistory {
     private Integer idProductPriceHistory;
     @ManyToOne
     @JoinColumn(name = "id_product")
+    @JsonIgnoreProperties({"comments","priceHistories"})
     private Product product;
     private LocalDate date;
     private Double price;

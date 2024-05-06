@@ -4,9 +4,12 @@ import com.example.backend.auth.AuthService;
 import com.example.backend.model.Product;
 import com.example.backend.model.ProductPriceHistory;
 import com.example.backend.model.User;
+import com.example.backend.repository.ProductPriceHistoryRepository;
 import com.example.backend.repository.ProductRepository;
+import com.example.backend.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +19,8 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final AuthService authService;
+    private final UserRepository userRepository;
+    private final ProductPriceHistoryRepository productPriceHistoryRepository;
     @Override
     public Optional<Product> getProduct(Integer idProduct) {
         return productRepository.findById(idProduct);
@@ -38,12 +43,25 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void addProductToObserved(Integer idProduct) {
+        User currentUser = authService.getSessionUser();
+        productRepository.findById(idProduct)
+                .ifPresent(p -> {
+                    p.getFollowers().add(currentUser);
+                    currentUser.getObserved().add(p);
+                    productRepository.save(p);
+                    userRepository.save(currentUser);
+                });
+    }
+
+    @Override
     public void changePrice(Integer idProduct, Double price) {
         productRepository.findById(idProduct)
                 .ifPresent(p -> {
                     p.setPrice(price);
                     ProductPriceHistory priceHistory = new ProductPriceHistory(p, price);
-                    p.getPriceHistories().add(priceHistory);
+                    priceHistory.setProduct(p);
+                    productPriceHistoryRepository.save(priceHistory);
                     productRepository.save(p);
                 });
     }

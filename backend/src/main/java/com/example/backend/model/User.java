@@ -27,7 +27,7 @@ public class User {
     private Cart cart;
     @OneToMany(mappedBy = "buyer")
     private List<Order> orders;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(
             name = "observed_products",
             joinColumns = @JoinColumn(name = "id_user"),

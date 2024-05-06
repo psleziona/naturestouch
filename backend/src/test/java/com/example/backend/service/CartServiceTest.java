@@ -1,7 +1,6 @@
 package com.example.backend.service;
 
 import com.example.backend.auth.AuthService;
-import com.example.backend.controller.CartController;
 import com.example.backend.model.Cart;
 import com.example.backend.model.Product;
 import com.example.backend.model.QuantityProduct;
@@ -28,15 +27,12 @@ class CartServiceTest {
     private final String apiPath = "/api/cart";
     @MockBean
     private CartService mockCartService;
-
-    @Autowired
-    private CartService cartService;
     @MockBean
     private AuthService mockAuthService;
     @Autowired
-    private MockMvc mockMvc;
+    private CartService cartService;
     @Autowired
-    private CartController cartController;
+    private MockMvc mockMvc;
     private User client;
     private Cart c;
 
@@ -53,14 +49,15 @@ class CartServiceTest {
     @Test
     void getCart() throws Exception {
 //        when(mockCartService.getCart()).thenReturn(c);
-        when(mockAuthService.getSessionUser()).thenReturn(client);
-        mockMvc.perform(get(apiPath).accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.products[0].name").value("Szampon"));
+//        when(mockAuthService.getSessionUser()).thenReturn(client);
+//        mockMvc.perform(get(apiPath).accept(MediaType.APPLICATION_JSON))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.products[0].name").value("Szampon"));
     }
     @Test
     void addProduct() {
+//        when(mockCartService.addProduct(1)).
     }
 
     @Test

@@ -6,6 +6,7 @@ import com.example.backend.model.Product;
 import com.example.backend.model.QuantityProduct;
 import com.example.backend.model.User;
 import com.example.backend.repository.CartRepository;
+import com.example.backend.repository.QuantityProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class CartServiceImpl implements CartService {
     private final AuthService authService;
     private final ProductService productService;
     private final CartRepository cartRepository;
+    private final QuantityProductRepository quantityProductRepository;
 
     @Override
     public Cart getCart() {
@@ -38,8 +40,11 @@ public class CartServiceImpl implements CartService {
                         cart.getProducts().stream()
                                 .filter(quantityProduct -> quantityProduct.getProduct().getIdProduct().equals(idProduct))
                                 .forEach(QuantityProduct::increaseQuantity);
-                    else
-                        cart.getProducts().add(new QuantityProduct(p));
+                    else {
+                        QuantityProduct qp = new QuantityProduct(p);
+                        qp.setCart(cart);
+                        quantityProductRepository.save(qp);
+                    }
                 });
         cartRepository.save(cart);
     }
@@ -54,8 +59,9 @@ public class CartServiceImpl implements CartService {
                             .filter(quantityProduct -> quantityProduct.getProduct().getIdProduct().equals(idProduct))
                             .forEach(quantityProduct -> {
                                 quantityProduct.decreaseQuantity();
-                                if(quantityProduct.getQuantity().equals(0))
-                                    cart.getProducts().remove(quantityProduct);
+                                if(quantityProduct.getQuantity().equals(0)) {
+                                    quantityProductRepository.delete(quantityProduct);
+                                }
                             });
                 });
         cartRepository.save(cart);
@@ -71,9 +77,17 @@ public class CartServiceImpl implements CartService {
                     if(productsInCart.contains(p))
                         cart.getProducts().stream()
                                 .filter(quantityProduct -> quantityProduct.getProduct().getIdProduct().equals(idProduct))
-                                .forEach(quantityProduct -> quantityProduct.setQuantity(quantity));
-                    else
-                        cart.getProducts().add(new QuantityProduct(p, quantity));
+                                .forEach(quantityProduct -> {
+                                    if(quantity == 0)
+                                        quantityProductRepository.delete(quantityProduct);
+                                    else
+                                        quantityProduct.setQuantity(quantity);
+                                });
+                    else {
+                        QuantityProduct qp = new QuantityProduct(p, quantity);
+                        qp.setCart(cart);
+                        quantityProductRepository.save(qp);
+                    }
                 });
         cartRepository.save(cart);
     }
