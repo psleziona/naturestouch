@@ -4,6 +4,7 @@ import com.example.backend.config.JwtService;
 import com.example.backend.model.Cart;
 import com.example.backend.model.Role;
 import com.example.backend.model.User;
+import com.example.backend.repository.CartRepository;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,11 +25,13 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final HttpServletRequest httpServletRequest;
     private final UserRepository userRepository;
+    private final CartRepository cartRepository;
 
     public AuthResponse register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.CLIENT);
-        user.setCart(new Cart());
+        Cart createdCart = cartRepository.save(new Cart());
+        user.setCart(createdCart);
         User createdClient = userService.setUser(user);
         CustomUserDetails userDetails = new CustomUserDetails(createdClient.getEmail(), createdClient.getPassword(), Role.CLIENT);
         String token = jwtService.generateToken(userDetails, user.getRole().toString(), user.getIdUser());

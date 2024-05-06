@@ -26,6 +26,11 @@ public class ProductController {
         return productService.getProducts();
     }
 
+    @GetMapping("/products/observed")
+    List<Product> getObserved() {
+        return productService.getObservedProducts();
+    }
+
     @PostMapping("/products")
     ResponseEntity<Void> addProduct(@RequestBody Product product) {
         productService.addProduct(product);

@@ -23,9 +23,8 @@ public class SecurityWebConf {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
-                            authorize.requestMatchers("/auth/**").permitAll();
-                            authorize.requestMatchers(HttpMethod.POST, "/api/employees").hasRole("ADMIN"); // dodawanie produktów, zmiana ceny itd
-                            authorize.anyRequest().authenticated();
+                            authorize.requestMatchers("/auth/**").permitAll();// dodawanie produktów, zmiana ceny itd
+                            authorize.anyRequest().permitAll();
                         }
                 )
                 .sessionManagement(sessionManagement -> {

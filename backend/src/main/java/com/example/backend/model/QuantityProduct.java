@@ -1,7 +1,9 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +16,7 @@ public class QuantityProduct {
     private Integer idCartProduct;
     @ManyToOne
     @JoinColumn(name = "id_product")
+    @JsonIgnoreProperties({"comments","category","ingredients","quantity","priceHistories","followers"})
     private Product product;
     @NotNull
     private Integer quantity;

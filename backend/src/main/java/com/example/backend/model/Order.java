@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@Entity
+@Entity(name = "orders")
 @NoArgsConstructor
 public class Order {
     @Id

@@ -23,6 +23,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public Cart getCart() {
         User currentUser = authService.getSessionUser();
+        var c = currentUser.getCart();
         return currentUser.getCart();
     }
 

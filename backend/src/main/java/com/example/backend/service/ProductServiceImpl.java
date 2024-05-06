@@ -1,7 +1,9 @@
 package com.example.backend.service;
 
+import com.example.backend.auth.AuthService;
 import com.example.backend.model.Product;
 import com.example.backend.model.ProductPriceHistory;
+import com.example.backend.model.User;
 import com.example.backend.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+    private final AuthService authService;
     @Override
     public Optional<Product> getProduct(Integer idProduct) {
         return productRepository.findById(idProduct);
@@ -21,6 +24,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProducts() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> getObservedProducts() {
+        User currentUser = authService.getSessionUser();
+        return currentUser.getObserved();
     }
 
     @Override

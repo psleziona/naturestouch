@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface ProductService {
     Optional<Product> getProduct(Integer idProduct);
     List<Product> getProducts();
+    List<Product> getObservedProducts();
     void addProduct(Product product);
     void deleteProduct(Integer idProduct);
     void increaseProductQuantity(Integer idProduct, Integer quantity);

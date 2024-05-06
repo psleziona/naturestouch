@@ -37,4 +37,6 @@ public class Product {
     private String filename;
     @OneToMany(mappedBy = "product")
     private List<ProductPriceHistory> priceHistories;
+    @ManyToMany(mappedBy = "observed")
+    private List<User> followers;
 }
