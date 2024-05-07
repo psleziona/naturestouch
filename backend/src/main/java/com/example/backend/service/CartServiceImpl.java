@@ -96,7 +96,7 @@ public class CartServiceImpl implements CartService {
     public void clearCart() {
         User currentUser = authService.getSessionUser();
         Cart cart = currentUser.getCart();
-        cart.setProducts(new ArrayList<>());
+        quantityProductRepository.deleteAll(cart.getProducts());
         cartRepository.save(cart);
     }
 }

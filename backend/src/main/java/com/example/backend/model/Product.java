@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -26,6 +27,7 @@ public class Product {
     @NotNull
     private Integer quantity;
     @OneToMany(mappedBy = "product")
+    @JsonIgnoreProperties({"produc"})
     private List<Comment> comments;
     @NotNull
     private ProductCategory category;
@@ -37,5 +39,6 @@ public class Product {
     @JsonIgnoreProperties({"product"})
     private List<ProductPriceHistory> priceHistories;
     @ManyToMany(mappedBy = "observed")
+    @JsonIgnore
     private List<User> followers;
 }

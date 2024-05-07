@@ -39,7 +39,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void addProduct(Product product) {
-        productRepository.save(product);
+       Product createdProduct = productRepository.save(product);
+       ProductPriceHistory pph = new ProductPriceHistory(product, product.getPrice());
+       pph.setProduct(createdProduct);
+       productPriceHistoryRepository.save(pph);
     }
 
     @Override
