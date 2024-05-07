@@ -1,13 +1,13 @@
+import {ProductPriceHistory} from "./productPriceHistory.model";
+
 export interface Product {
-  idProduct: number;
+  idProduct?: number;
   name: string;
   price: number;
   quantity: number;
-  lowestPriceInLast30Days: number;
-  dateOfLowestPrice: string;
   category: string;
   ingredients: string;
   filename: string;
-  newPrice?: number;
   comments?: Comment[];
+  priceHistories?: ProductPriceHistory[]
 }

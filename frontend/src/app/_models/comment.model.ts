@@ -5,5 +5,4 @@ export interface Comment {
   comment: string;
   rate: number;
   dateTime: string;
-  product: Product;
 }

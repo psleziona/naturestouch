@@ -1,58 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
 import {User} from "../_models/user.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/auth';
-  private currentUserSubject: BehaviorSubject<any>;
+  private authUrl = 'http://localhost:8080/auth';
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) {
-    const userJson = localStorage.getItem('currentUser');
-    this.currentUserSubject = new BehaviorSubject<any>(userJson ? JSON.parse(userJson) : null);
+  login(body: Object) {
+    return this.http.post<any>(this.authUrl + "/login", body);
   }
 
-  login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { email, password })
-      .pipe(tap(user => {
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-        }
-      }));
-  }
-
-  logout(): void {
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
-  }
-
-  register(user: User) {
-    return this.http.post<User>(`${this.apiUrl}/register`, user);
-  }
-
-  public get currentUserValue(): any {
-    return this.currentUserSubject.value;
-  }
-
-  isLoggedIn(): boolean {
-    return !!this.currentUserSubject.value;
-  }
-
-  isAdministrator(): boolean {
-    const currentUser = this.currentUserSubject.value;
-    return currentUser && currentUser.role === 'ADMIN';
-  }
-
-  getToken(): string {
-    const currentUser = this.currentUserSubject.value;
-    return currentUser ? currentUser.token : null;
-  }
-  public get currentUser(): Observable<User> {
-    return this.currentUserSubject.asObservable();
+  register(client: User) {
+    return this.http.post<User>(this.authUrl + "/register", client);
   }
 }

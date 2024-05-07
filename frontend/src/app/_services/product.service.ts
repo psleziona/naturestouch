@@ -19,8 +19,8 @@ export class ProductService {
     return this.http.get<Product>(`${this.apiUrl}/${idProduct}`);
   }
 
-  addProduct(productData: FormData): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/products`, productData);
+  addProduct(product: Product): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/products`, product);
   }
 
 
@@ -34,5 +34,13 @@ export class ProductService {
 
   deleteProduct(idProduct: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${idProduct}`);
+  }
+
+  getObservedProducts() :Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}/observed`);
+  }
+
+  addProductToObserved(idProduct: number) {
+    return this.http.post(`${this.apiUrl}/observed/${idProduct}`, {});
   }
 }

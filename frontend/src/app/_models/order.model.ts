@@ -6,7 +6,6 @@ export interface Order {
   idOrder: number;
   dateTime: string;
   status: OrderStatus;
-  buyer: User;
   products: QuantityProduct[];
   paymentMethod: string;
 }

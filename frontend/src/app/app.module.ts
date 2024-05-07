@@ -14,18 +14,18 @@ import {AuthInterceptor} from "./_interceptor/auth.interceptor";
 import {AppRoutingModule} from "./app-routing.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {RegisterComponent} from "./components/register/register.component";
 
 @NgModule({
   declarations: [
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    CommonModule
-
-
+    CommonModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

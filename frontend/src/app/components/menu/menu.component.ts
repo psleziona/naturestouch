@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AuthService} from "../../_services/auth.service";
 import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {StorageService} from "../../_services/storage.service";
 
 @Component({
   selector: 'app-menu',
@@ -14,5 +15,5 @@ import {RouterLink} from "@angular/router";
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
-  constructor(public authService: AuthService) {}
+  constructor(public storageService: StorageService) {}
 }
