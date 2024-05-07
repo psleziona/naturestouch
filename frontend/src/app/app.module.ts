@@ -26,14 +26,13 @@ import {CommonModule} from "@angular/common";
     CommonModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     AuthService,
     ProductService,
     OrderService,
     CartService,
     ImageService,
-    CommentService,
-    AuthInterceptor
+    CommentService
   ],
 })
 export class AppModule { }
