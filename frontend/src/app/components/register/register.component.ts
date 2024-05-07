@@ -1,28 +1,34 @@
-import { Component } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {Component} from '@angular/core';
 import {AuthService} from "../../_services/auth.service";
 import {User} from "../../_models/user.model";
+import {FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule} from "@angular/forms";
+import {Router} from "@angular/router";
 
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  standalone: true,
+  imports: [ReactiveFormsModule, FormsModule]
 })
 export class RegisterComponent {
-  registerForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    street: new FormControl(''),
-    houseNumber: new FormControl(''),
-    city: new FormControl(''),
-    zipcode: new FormControl('')
+  registerForm!: FormGroup;
 
-  });
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {}
 
-  constructor(private authService: AuthService) {}
+  ngOnInit() {
+    this.registerForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      street: ['', Validators.required],
+      houseNumber: ['', Validators.required],
+      city: ['', Validators.required],
+      zipcode: ['', Validators.required]
+      })
+  }
 
   register() {
     const user : User = {
@@ -35,6 +41,6 @@ export class RegisterComponent {
       city: this.registerForm.value.city ??  '',
       zipcode: this.registerForm.value.zipcode ?? '',
     }
-    this.authService.register(user).subscribe(res => window.location.reload());
+    this.authService.register(user).subscribe(res => this.router.navigateByUrl("/"));
   }
 }

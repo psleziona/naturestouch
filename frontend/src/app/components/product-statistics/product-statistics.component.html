@@ -1,4 +1,4 @@
-<div class="container" *ngIf="authService.isAdministrator()">
+<div class="container">
   <h2>Lista produktów</h2>
   <table class="table">
     <thead>
@@ -12,10 +12,10 @@
     <tr *ngFor="let product of products">
       <td>{{ product.name }}</td>
       <td>
-        <input type="number" [(ngModel)]="product.newPrice" [min]="0" class="form-control" placeholder="Nowa cena">
+        <input type="number" [(ngModel)]="product.price" [min]="0" class="form-control" placeholder="Nowa cena">
       </td>
       <td>
-        <button class="btn btn-primary" (click)="product.newPrice !== undefined && changePrice(product.idProduct, product.newPrice)">Zmień cenę</button>
+        <button class="btn btn-primary" (click)="product.price !== undefined && changePrice(product.idProduct, product.price)">Zmień cenę</button>
         <button class="btn btn-danger" (click)="deleteProduct(product.idProduct)">Usuń</button>
       </td>
 

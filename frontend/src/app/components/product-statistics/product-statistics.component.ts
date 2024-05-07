@@ -37,7 +37,7 @@ export class ProductStatisticsComponent implements OnInit {
     );
   }
 
-  changePrice(idProduct: number, newPrice: number): void {
+  changePrice(idProduct: number | undefined, newPrice: number): void {
     this.productService.changePrice(idProduct, newPrice).subscribe(
       () => {
         console.log('Price changed successfully.');
@@ -49,7 +49,7 @@ export class ProductStatisticsComponent implements OnInit {
     );
   }
 
-  deleteProduct(idProduct: number): void {
+  deleteProduct(idProduct: number | undefined): void {
     this.productService.deleteProduct(idProduct).subscribe(
       () => {
         console.log('Product deleted successfully.');

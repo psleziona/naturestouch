@@ -3,10 +3,6 @@
   <div *ngIf="order; else loading" class="card">
     <div class="card-body">
       <h3 class="card-title">Dane zamawiającego:</h3>
-      <p><strong>Imię:</strong> {{ order.buyer.firstName }}</p>
-      <p><strong>Nazwisko:</strong> {{ order.buyer.lastName }}</p>
-      <p><strong>Email:</strong> {{ order.buyer.email }}</p>
-      <p><strong>Adres:</strong> {{ order.buyer.street }}, {{ order.buyer.city }}, {{ order.buyer.zipcode }}</p>
       <p><strong>Metoda płatności:</strong> {{ order.paymentMethod }}</p>
       <p><strong>Status zamówienia:</strong> {{ order.status}}</p>
 

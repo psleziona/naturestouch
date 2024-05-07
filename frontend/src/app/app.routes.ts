@@ -14,6 +14,7 @@ import {ObservedComponent} from "./components/observed/observed.component";
 import {UserDataEditComponent} from "./components/user-data-edit/user-data-edit.component";
 import {LoginComponent} from "./components/login/login.component";
 import {RegisterComponent} from "./components/register/register.component";
+import {HomeComponent} from "./components/home/home.component";
 
 export const routes: Routes = [
   { path: 'products', component: ProductListComponent},
@@ -28,5 +29,6 @@ export const routes: Routes = [
   { path: 'product-statistics', component: ProductStatisticsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'order-summary/:idOrder', component: OrderSummaryComponent, canActivate:[AuthGuard]},
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: '', component: HomeComponent }
 ];

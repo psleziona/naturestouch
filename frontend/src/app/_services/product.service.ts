@@ -24,7 +24,7 @@ export class ProductService {
   }
 
 
-  changePrice(idProduct: number, price: number): Observable<void> {
+  changePrice(idProduct: number | undefined, price: number): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/price/${idProduct}/${price}`, {});
   }
 
@@ -32,7 +32,7 @@ export class ProductService {
     return this.http.put<void>(`${this.apiUrl}/${idProduct}/${quantity}`, {});
   }
 
-  deleteProduct(idProduct: number): Observable<void> {
+  deleteProduct(idProduct: number | undefined): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${idProduct}`);
   }
 

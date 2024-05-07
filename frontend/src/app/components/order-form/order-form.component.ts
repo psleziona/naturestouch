@@ -28,20 +28,20 @@ export class OrderFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe(user => {
-      this.currentUser = user;
-      if (user) {
-        this.orderForm = this.formBuilder.group({
-          firstName: [user.firstName, Validators.required],
-          lastName: [user.lastName, Validators.required],
-          email: [user.email, [Validators.required, Validators.email]],
-          street: ['', Validators.required],
-          city: ['', Validators.required],
-          zipCode: ['', Validators.required],
-          paymentMethod: ['', Validators.required]
-        });
-      }
-    });
+    // this.authService.currentUser.subscribe(user => {
+    //   this.currentUser = user;
+    //   if (user) {
+    //     this.orderForm = this.formBuilder.group({
+    //       firstName: [user.firstName, Validators.required],
+    //       lastName: [user.lastName, Validators.required],
+    //       email: [user.email, [Validators.required, Validators.email]],
+    //       street: ['', Validators.required],
+    //       city: ['', Validators.required],
+    //       zipCode: ['', Validators.required],
+    //       paymentMethod: ['', Validators.required]
+    //     });
+    //   }
+    // });
   }
 
   onSubmit(): void {

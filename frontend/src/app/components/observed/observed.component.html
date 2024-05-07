@@ -1,1 +1,10 @@
-<p>observed works!</p>
+<table>
+  <tr>
+    <th>Nazwa</th>
+    <th>Cena</th>
+  </tr>
+  <tr *ngFor="let p of observed">
+    <td>{{ p.name }}</td>
+    <td>{{ p.price }}</td>
+  </tr>
+</table>
