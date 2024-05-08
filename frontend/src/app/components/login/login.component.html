@@ -1,10 +1,11 @@
-<div>
-  <form [formGroup]="loginForm" (submit)="login()">
-    <label class="form-tittle">Logowanie</label>
+<form [formGroup]="loginForm" (submit)="login()">
+  <div class="form-group">
     <label for="email">Email</label>
-    <input type="text" id="email" formControlName="email">
+    <input type="text" id="email" formControlName="email" class="form-control">
+  </div>
+  <div class="form-group">
     <label for="password">Password</label>
-    <input type="password" id="password" formControlName="password">
-    <button type="submit">Zaloguj</button>
-  </form>
-</div>
+    <input type="password" id="password" formControlName="password" class="form-control">
+  </div>
+  <button class="btn btn-primary" type="submit">Zaloguj</button>
+</form>

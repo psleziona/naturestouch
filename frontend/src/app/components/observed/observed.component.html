@@ -1,10 +1,14 @@
-<table>
+<table class="table">
   <tr>
+    <th></th>
     <th>Nazwa</th>
     <th>Cena</th>
+    <th></th>
   </tr>
   <tr *ngFor="let p of observed">
-    <td>{{ p.name }}</td>
+    <td><img style="height: 50px" src="http://localhost:8080/images/{{ p.filename }}" alt=""></td>
+    <td><a routerLink="/product/{{ p.idProduct }}">{{ p.name }}</a></td>
     <td>{{ p.price }}</td>
+    <td style="text-align: right"><button class="btn btn-danger" (click)="deleteFromObserved(p.idProduct)">Usuń</button></td>
   </tr>
 </table>

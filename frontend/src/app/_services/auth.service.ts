@@ -16,4 +16,16 @@ export class AuthService {
   register(client: User) {
     return this.http.post<User>(this.authUrl + "/register", client);
   }
+
+  editUserData(user: User) {
+    return this.http.put<User>(this.authUrl + "/user/edit", user);
+  }
+
+  getCurrentUserData() {
+    return this.http.get<User>(this.authUrl + "/user");
+  }
+
+  changePassword(body: Object) {
+    return this.http.post(this.authUrl + "/passwordChange", body);
+  }
 }

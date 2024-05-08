@@ -43,4 +43,8 @@ export class ProductService {
   addProductToObserved(idProduct: number) {
     return this.http.post(`${this.apiUrl}/observed/${idProduct}`, {});
   }
+
+  removeProductFromObserved(idProduct: number | undefined) {
+    return this.http.delete(`${this.apiUrl}/observed/${idProduct}`);
+  }
 }

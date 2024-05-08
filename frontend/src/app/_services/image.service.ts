@@ -11,7 +11,8 @@ export class ImageService {
   constructor(private http: HttpClient) { }
 
   uploadImage(image: FormData): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/upload`, image);
+    return this.http.post(`${this.apiUrl}/upload`, image,
+      {responseType: "text"});
   }
 
   downloadImage(fileName: string): Observable<Blob> {

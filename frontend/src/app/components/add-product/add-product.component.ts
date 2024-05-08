@@ -45,7 +45,10 @@ export class AddProductComponent implements OnInit {
         const img = new FormData();
         img.append("file", file);
         this.imageService.uploadImage(img)
-          .subscribe(x => console.log(x))
+          .subscribe(res => {
+            this.filename = res;
+            console.log(res);
+          });
       } else
         alert("Wybrany plik nie jest obrazem. Proszę wybrać plik obrazu.");
     }
@@ -70,4 +73,8 @@ export class AddProductComponent implements OnInit {
       alert('Formularz zawiera błędy lub nie wybrano prawidłowego pliku!');
     }
   }
+}
+
+interface ImageInfo {
+  filename: string
 }

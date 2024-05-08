@@ -1,1 +1,13 @@
-<p>order-history works!</p>
+<h3>Historia zamówień</h3>
+<table class="table">
+  <tr>
+    <th>Numer zamówienia</th>
+    <th>Data</th>
+    <th>Status</th>
+  </tr>
+  <tr *ngFor="let o of orders">
+    <td><a routerLink="/order/{{ o.idOrder }}">{{ o.idOrder }}</a></td>
+    <td>{{ o.dateTime }}</td>
+    <td>{{ o.status }}</td>
+  </tr>
+</table>

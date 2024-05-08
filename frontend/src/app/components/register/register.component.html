@@ -1,40 +1,37 @@
 <div class="form-container">
   <form [formGroup]="registerForm" (submit)="register()">
-    <div>
-      <label class="form-tittle">Rejestracja</label>
-    </div>
-    <div>
+    <div class="form-group">
       <label for="firstName">Imię</label>
-      <input type="text" id="firstName" formControlName="firstName">
+      <input type="text" id="firstName" formControlName="firstName" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
       <label for="lastName">Nazwisko</label>
-      <input type="text" id="lastName" formControlName="lastName">
+      <input type="text" id="lastName" formControlName="lastName" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
       <label for="email">Email</label>
-      <input type="text" id="email" formControlName="email">
+      <input type="text" id="email" formControlName="email" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
       <label for="password">Hasło</label>
-      <input type="password" id="password" formControlName="password">
+      <input type="password" id="password" formControlName="password" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
       <label for="street">Ulica</label>
-      <input id="street" formControlName="street">
+      <input id="street" formControlName="street" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
       <label for="houseNumber">Nr domu</label>
-      <input id="houseNumber" formControlName="houseNumber">
+      <input id="houseNumber" formControlName="houseNumber" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
       <label for="city">Miasto</label>
-      <input id="city" formControlName="city">
+      <input id="city" formControlName="city" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
       <label for="zipcode">Kod pocztowy</label>
-      <input id="zipcode" formControlName="zipcode">
+      <input id="zipcode" formControlName="zipcode" class="form-control">
     </div>
-    <button type="submit">Dodaj</button>
+    <button class="btn btn-primary" type="submit">Zarejestruj</button>
   </form>
 </div>
