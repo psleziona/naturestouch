@@ -76,4 +76,16 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(password));
         userService.setUser(user);
     }
+
+    public void editUserData(User user) {
+        User currentUser = getSessionUser();
+        currentUser.setFirstName(user.getFirstName());
+        currentUser.setLastName(user.getLastName());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setCity(user.getCity());
+        currentUser.setHouseNumber(user.getHouseNumber());
+        currentUser.setZipcode(user.getZipcode());
+        currentUser.setStreet(user.getStreet());
+        userRepository.save(currentUser);
+    }
 }

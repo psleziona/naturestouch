@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.config.UploadProperties;
 import jakarta.servlet.ServletContext;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.Resource;
@@ -17,12 +18,13 @@ import java.nio.file.Paths;
 @Service
 @AllArgsConstructor
 public class ImageServiceImpl implements ImageService{
-    private final ServletContext servletContext;
+    private final UploadProperties uploadProperties;
     @Override
     public String saveImage(MultipartFile file) throws IOException {
         byte[] bytes = file.getBytes();
-        String fileName = generateFileName();
-        Path path = Paths.get(servletContext.getAttribute("uploadDirectory") + "/" + fileName);
+        String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+        String fileName = generateFileName(extension);
+        Path path = Paths.get(uploadProperties.getDirectory() + "/" + fileName);
         Files.createDirectories(path.getParent());
         Files.write(path, bytes);
         return fileName;
@@ -31,7 +33,7 @@ public class ImageServiceImpl implements ImageService{
     @Override
     public Resource loadImageAsResource(String fileName) {
         try {
-            Path filePath = Paths.get((String) servletContext.getAttribute("uploadDirectory")).resolve(fileName);
+            Path filePath = Paths.get(uploadProperties.getDirectory()).resolve(fileName);
             Resource resource = new UrlResource(filePath.toUri());
 
             if (resource.exists() && resource.isReadable()) {
@@ -45,7 +47,7 @@ public class ImageServiceImpl implements ImageService{
     }
 
     @Override
-    public String generateFileName() {
-        return RandomStringUtils.randomAlphanumeric(30);
+    public String generateFileName(String extension) {
+        return RandomStringUtils.randomAlphanumeric(30) + "." + extension;
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*")
@@ -30,5 +32,16 @@ public class AuthController {
     public ResponseEntity<Void> changePassword(@RequestBody AuthRequest request) {
         authService.changePassword(request.getPassword());
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/user/edit")
+    public ResponseEntity<Void> editUserData(@RequestBody User user) {
+        authService.editUserData(user);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<User> getCurrentUserData() {
+        return ResponseEntity.of(Optional.of(authService.getSessionUser()));
     }
 }

@@ -37,6 +37,12 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @DeleteMapping("/products/observed/{idProduct}")
+    ResponseEntity<Void> deleteFromObserved(@PathVariable Integer idProduct) {
+        productService.deleteProductFromObserved(idProduct);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     @PostMapping("/products")
     ResponseEntity<Void> addProduct(@RequestBody Product product) {
         productService.addProduct(product);

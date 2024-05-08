@@ -8,5 +8,5 @@ import java.io.IOException;
 public interface ImageService {
     String saveImage(MultipartFile file) throws IOException;
     Resource loadImageAsResource(String fileName);
-    String generateFileName();
+    String generateFileName(String extension);
 }

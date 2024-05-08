@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -54,6 +56,21 @@ public class ProductServiceImpl implements ProductService {
                     currentUser.getObserved().add(p);
                     productRepository.save(p);
                     userRepository.save(currentUser);
+                });
+    }
+
+    @Override
+    public void deleteProductFromObserved(Integer idProduct) {
+        productRepository.findById(idProduct)
+                .ifPresent(p -> {
+                    User currentUser = authService.getSessionUser();
+                    List<User> followers = p.getFollowers();
+                    followers.remove(currentUser);
+                    p.setFollowers(followers);
+                    List<Product> observed = currentUser.getObserved();
+                    var filtered = observed.stream().filter(product -> !Objects.equals(product.getIdProduct(), idProduct)).toList();
+                    currentUser.setObserved(filtered);
+                    productRepository.save(p);
                 });
     }
 

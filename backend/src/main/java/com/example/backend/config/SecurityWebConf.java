@@ -22,12 +22,13 @@ public class SecurityWebConf {
     private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
-    //TODO dodać odpowiednie uprawnienia dla endpointów
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
-                            authorize.requestMatchers("/auth/**").permitAll();// dodawanie produktów, zmiana ceny itd
+                            authorize.requestMatchers("/auth/user/edit").hasRole("CLIENT");
+                            authorize.requestMatchers("/auth/user").hasRole("CLIENT");
+                            authorize.requestMatchers("/auth/**").permitAll();
                             authorize.requestMatchers("/api/cart/**").hasRole("CLIENT");
                             authorize.requestMatchers("/api/comment/**").hasRole("CLIENT");
                             authorize.requestMatchers("/api/orders/**").hasRole("CLIENT");

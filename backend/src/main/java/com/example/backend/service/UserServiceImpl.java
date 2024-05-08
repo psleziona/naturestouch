@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.auth.AuthService;
 import com.example.backend.model.User;
 import com.example.backend.repository.UserRepository;
 import lombok.AllArgsConstructor;
