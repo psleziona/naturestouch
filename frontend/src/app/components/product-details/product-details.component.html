@@ -1,24 +1,23 @@
-<div *ngIf="product; else noProductTemplate">
+<div *ngIf="product; else noProductTemplate" class="product-info">
   <h2>{{ product.name }}</h2>
   <p>{{ product.description }}</p>
-  <p>{{ product.price }}</p>
+  <p>Cena: {{ product.price }} zł</p>
   <p>Kategoria: {{ product.category }}</p>
   <p>Składniki: {{ product.ingredients }}</p>
 
-
-  <div *ngIf="!(product) || product.priceHistories && product.priceHistories.length">
-    <h3>Price History:</h3>
+  <div *ngIf="product.priceHistories && product.priceHistories.length">
+    <h3>Historia cen:</h3>
     <ul>
-      <li *ngFor="let history of product?.priceHistories">
-        {{ history.date  }}: {{ history.price }}
+      <li *ngFor="let history of product.priceHistories">
+        {{ history.date }}: {{ history.price }} zł
       </li>
     </ul>
   </div>
 
-  <button (click)="addToCart(product)">Dodaj do koszyka</button>
-  <button (click)="addToObserved(product)">Obserwuj</button>
+  <button class="btn-primary" (click)="addToCart(product)">Dodaj do koszyka</button>
+  <button class="btn-primary"(click)="addToObserved(product)">Obserwuj</button>
 </div>
 
 <ng-template #noProductTemplate>
-  <p>Nie znaleziono produktu.</p>
+  <p class="alert-danger">Nie znaleziono produktu.</p>
 </ng-template>

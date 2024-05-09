@@ -1,20 +1,38 @@
 <div>
-  <select [(ngModel)]="sortOrder" (change)="sortProducts()">
+  <select [(ngModel)]="sortOrder" (change)="sortProducts()" class="sorting-select">
     <option value="">Sortowanie</option>
-    <option value="name-asc">Sortuj po nazwie(A-Z)</option>
-    <option value="name-desc">Sortuj po nazwie(Z-A)</option>
+    <option value="name-asc">Sortuj po nazwie (A-Z)</option>
+    <option value="name-desc">Sortuj po nazwie (Z-A)</option>
     <option value="price-asc">Sortuj po cenie rosnąco</option>
     <option value="price-desc">Sortuj po cenie malejąco</option>
   </select>
 </div>
+
 <div *ngIf="products.length > 0; else noProductsTemplate">
-  <div *ngFor="let product of products" class="product-item">
-    <a [routerLink]="['/product', product.idProduct]">
-    <app-product-tile [product]="product"></app-product-tile>
-    </a>
-    <button (click)="addToObserved(product.idProduct)">Obserwuj</button>
-  </div>
+  <table>
+    <thead>
+    <tr>
+      <th>Nazwa produktu</th>
+      <th>Cena</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products">
+      <td>
+        <a [routerLink]="['/product', product.idProduct]">
+          {{ product.name }}
+        </a>
+      </td>
+      <td>{{ product.price }} zł</td>
+      <td>
+        <button class= 'btn-primary' (click)="addToObserved(product.idProduct)">Obserwuj</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
+
 <ng-template #noProductsTemplate>
-  <p>Brak dostępnych produktów.</p>
+  <p class="alert-danger">Brak dostępnych produktów.</p>
 </ng-template>
