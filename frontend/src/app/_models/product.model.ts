@@ -10,4 +10,5 @@ export interface Product {
   filename: string;
   comments?: Comment[];
   priceHistories?: ProductPriceHistory[]
+  description?: string;
 }

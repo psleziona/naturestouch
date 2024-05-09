@@ -20,7 +20,7 @@ export class ProductService {
   }
 
   addProduct(product: Product): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/products`, product);
+    return this.http.post<any>(`${this.apiUrl}`, product);
   }
 
 
