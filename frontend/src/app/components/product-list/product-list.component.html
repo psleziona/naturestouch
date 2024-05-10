@@ -1,38 +1,31 @@
+<div class="main-container">
+  <div class="sidebar">
+    <div class="sorting-container">
+      <select [(ngModel)]="selectedCategory" (change)="filterByCategory()" class="category-select">
+        <option value="">Wszystkie kategorie</option>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+
+      <select [(ngModel)]="sortOrder" (change)="sortProducts()" class="sorting-select">
+        <option value="">Sortowanie</option>
+        <option value="name-asc">Sortuj po nazwie (A-Z)</option>
+        <option value="name-desc">Sortuj po nazwie (Z-A)</option>
+        <option value="price-asc">Sortuj po cenie rosnąco</option>
+        <option value="price-desc">Sortuj po cenie malejąco</option>
+      </select>
+    </div>
+
+  </div>
+  <div class="product-container">
+    <div *ngFor="let product of filteredProducts" class="product-tile">
+      <a [routerLink]="'/product/' + product.idProduct" style="text-decoration: none; color: inherit;">
+      <app-product-tile [product]="product"></app-product-tile>
+      </a>
+    </div>
+  </div>
 <div>
-  <select [(ngModel)]="sortOrder" (change)="sortProducts()" class="sorting-select">
-    <option value="">Sortowanie</option>
-    <option value="name-asc">Sortuj po nazwie (A-Z)</option>
-    <option value="name-desc">Sortuj po nazwie (Z-A)</option>
-    <option value="price-asc">Sortuj po cenie rosnąco</option>
-    <option value="price-desc">Sortuj po cenie malejąco</option>
-  </select>
+    <ng-template #noProductsTemplate>
+      <p class="alert-danger">Brak dostępnych produktów.</p>
+    </ng-template>
+  </div>
 </div>
-
-<div *ngIf="products.length > 0; else noProductsTemplate">
-  <table>
-    <thead>
-    <tr>
-      <th>Nazwa produktu</th>
-      <th>Cena</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let product of products">
-      <td>
-        <a [routerLink]="['/product', product.idProduct]">
-          {{ product.name }}
-        </a>
-      </td>
-      <td>{{ product.price }} zł</td>
-      <td>
-        <button class= 'btn-primary' (click)="addToObserved(product.idProduct)">Obserwuj</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-
-<ng-template #noProductsTemplate>
-  <p class="alert-danger">Brak dostępnych produktów.</p>
-</ng-template>

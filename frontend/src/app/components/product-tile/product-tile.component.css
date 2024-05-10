@@ -1,0 +1,8 @@
+.product-tile img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  margin: auto;
+}
+

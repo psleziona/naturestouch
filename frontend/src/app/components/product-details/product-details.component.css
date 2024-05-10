@@ -1,0 +1,57 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+
+.product-info {
+  background-color: #ffffff;
+  width: 100%;
+  padding: 20px;
+  margin: auto;
+  border-radius: 8px;
+}
+
+.product-info img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  max-height: 500px;
+  max-width: 500px;
+
+}
+
+h2 {
+  color: #333;
+  font-size: 24px;
+}
+
+p {
+  color: #666;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+
+.btn-primary {
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: calc(50% - 4px);
+  margin: 5px 2px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #003580;
+}
+
