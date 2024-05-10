@@ -1,1 +1,8 @@
-<p>order-details works!</p>
+<div>
+  <p>Data zamówienia: {{ order?.dateTime}}</p>
+  <p>Status: {{ order?.status }}</p>
+  <p>Zawartość:</p>
+  <ul>
+    <li *ngFor="let p of order?.products">{{p.product.name}} - {{ p.quantity }} szt.</li>
+  </ul>
+</div>

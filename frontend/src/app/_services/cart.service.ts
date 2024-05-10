@@ -19,11 +19,11 @@ export class CartService {
     return this.http.post<void>(`${this.apiUrl}/add/${idProduct}`, {});
   }
 
-  deleteProductFromCart(idProduct: number): Observable<void> {
+  deleteProductFromCart(idProduct: number | undefined): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete/${idProduct}`);
   }
 
-  updateCartItem(idProduct: number, quantity: number): Observable<void> {
+    updateCartItem(idProduct: number | undefined, quantity: number): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/set/${idProduct}/${quantity}`, {});
   }
 

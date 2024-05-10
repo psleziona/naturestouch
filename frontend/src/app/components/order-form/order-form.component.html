@@ -1,40 +1,11 @@
-<div class="container" *ngIf="orderForm">
-  <h2>Formularz zakupu</h2>
-  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="firstName">Imię:</label>
-      <input type="text" id="firstName" class="form-control" formControlName="firstName">
-    </div>
-    <div class="form-group">
-      <label for="lastName">Nazwisko:</label>
-      <input type="text" id="lastName" class="form-control" formControlName="lastName">
-    </div>
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" id="email" class="form-control" formControlName="email">
-    </div>
-    <div formGroupName="address">
-      <div class="form-group">
-        <label for="street">Ulica:</label>
-        <input type="text" id="street" class="form-control" formControlName="street">
-      </div>
-      <div class="form-group">
-        <label for="city">Miasto:</label>
-        <input type="text" id="city" class="form-control" formControlName="city">
-      </div>
-      <div class="form-group">
-        <label for="zipCode">Kod pocztowy:</label>
-        <input type="text" id="zipCode" class="form-control" formControlName="zipCode">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="paymentMethod">Metoda płatności:</label>
-      <select id="paymentMethod" class="form-control" formControlName="paymentMethod">
-        <option value="card">Karta</option>
-        <option value="paypal">PayPal</option>
-        <option value="cash">Gotówka przy odbiorze</option>
-      </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
-  </form>
+<div class="container">
+  <h2>Adres dostawy</h2>
+  <p>{{currentUser?.firstName}} {{currentUser?.lastName}}</p>
+  <p>{{currentUser?.street}} {{currentUser?.houseNumber}}</p>
+  <p>{{currentUser?.zipcode}} {{currentUser?.city}}</p>
+  <h2>Produkty</h2>
+  <ul>
+    <li *ngFor="let p of cart?.products">{{p.product.name}} - {{p.quantity}} sztuk. Wartość: {{ p.product.price * p.quantity}} zł</li>
+  </ul>
+  <button (click)="onSubmit()">Potwierdź</button>
 </div>

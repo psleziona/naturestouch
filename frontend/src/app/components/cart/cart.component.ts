@@ -39,23 +39,23 @@ export class CartComponent implements OnInit {
     this.total = this.cartItems.reduce((acc, item) => acc + item.quantity * item.product.price, 0);
   }
 
-  removeFromCart(itemId: number) {
+  removeFromCart(itemId: number | undefined) {
     this.cartService.deleteProductFromCart(itemId).subscribe({
       next: () => {
-        this.cartItems = this.cartItems.filter(item => item.idCartProduct !== itemId);
+        this.cartItems = this.cartItems.filter(item => item.product.idProduct !== itemId);
         this.calculateTotal();
       },
       error: err => console.error('Failed to remove item', err)
     });
   }
 
-  changeQuantity(itemId: number, quantity: number) {
+  changeQuantity(itemId: number | undefined, quantity: number) {
     if (quantity <= 0) {
       this.removeFromCart(itemId);
     } else {
       this.cartService.updateCartItem(itemId, quantity).subscribe({
         next: () => {
-          const index = this.cartItems.findIndex(item => item.idCartProduct === itemId);
+          const index = this.cartItems.findIndex(item => item.product.idProduct === itemId);
           if (index !== -1) {
             this.cartItems[index].quantity = quantity;
             this.calculateTotal();
