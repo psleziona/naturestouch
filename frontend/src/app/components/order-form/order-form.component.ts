@@ -5,6 +5,7 @@ import {User} from "../../_models/user.model";
 import {NgIf} from "@angular/common";
 import {OrderService} from "../../_services/order.service";
 import {Router} from "@angular/router";
+import {StorageService} from "../../_services/storage.service";
 
 @Component({
   selector: 'app-order-form',
@@ -24,28 +25,33 @@ export class OrderFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private orderService: OrderService,
+    private storageService: StorageService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    // this.authService.currentUser.subscribe(user => {
-    //   this.currentUser = user;
-    //   if (user) {
-    //     this.orderForm = this.formBuilder.group({
-    //       firstName: [user.firstName, Validators.required],
-    //       lastName: [user.lastName, Validators.required],
-    //       email: [user.email, [Validators.required, Validators.email]],
-    //       street: ['', Validators.required],
-    //       city: ['', Validators.required],
-    //       zipCode: ['', Validators.required],
-    //       paymentMethod: ['', Validators.required]
-    //     });
-    //   }
-    // });
+    this.currentUser = this.storageService.getUser();
+    if (this.currentUser && Object.keys(this.currentUser).length > 0) {
+      this.orderForm = this.formBuilder.group({
+        firstName: [this.currentUser.firstName || '', Validators.required],
+        lastName: [this.currentUser.lastName || '', Validators.required],
+        email: [this.currentUser.email || '', [Validators.required, Validators.email]],
+        address: this.formBuilder.group({
+          street: ['', Validators.required],
+          city: ['', Validators.required],
+          zipCode: ['', Validators.required]
+        }),
+        paymentMethod: ['', Validators.required]
+      });
+      console.log('Initial form values:', this.orderForm.value);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   onSubmit(): void {
     if (this.orderForm?.valid) {
+      console.log('Form values:', this.orderForm.value);
       this.orderService.createOrder(this.orderForm.value).subscribe(
         order => {
           console.log('Order created successfully.');

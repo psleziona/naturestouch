@@ -14,7 +14,7 @@ import { CartService } from "../../_services/cart.service";
 })
 export class ProductDetailsComponent implements OnInit {
   product: Product | undefined;
-
+  lowestPriceLast30Days: number | undefined;
   constructor(
     private productService: ProductService,
     private cartService: CartService,
@@ -25,11 +25,32 @@ export class ProductDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       const id = +params['id'];
       this.productService.getProduct(id).subscribe({
-        next: (product) => this.product = product,
+        next: (product) => {
+          this.product = product;
+          this.calculateLowestPrice();
+        },
         error: (err) => console.error('Failed to load product', err)
       });
     });
   }
+  calculateLowestPrice(): void {
+    if (!this.product || !this.product.priceHistories || this.product.priceHistories.length === 0) {
+      return;
+    }
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    const pricesLast30Days = this.product.priceHistories
+      .filter(history => new Date(history.date) >= thirtyDaysAgo)
+      .map(history => history.price);
+
+    if (pricesLast30Days.length > 0) {
+      this.lowestPriceLast30Days = Math.min(...pricesLast30Days);
+    } else {
+      this.lowestPriceLast30Days = undefined;
+    }
+  }
+
 
   addToCart(product: Product | undefined): void {
     if (!product || !product.idProduct) {

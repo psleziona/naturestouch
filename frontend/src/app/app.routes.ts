@@ -21,7 +21,7 @@ export const routes: Routes = [
   { path: 'product/:id', component: ProductDetailsComponent, canActivate: [AuthGuard]},
   { path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard, AdminGuard]},
   { path: 'cart', component: CartComponent },
-  { path: 'order-form', component: OrderFormComponent },
+  { path: 'order-form', component: OrderFormComponent, canActivate: [AuthGuard] },
   { path: 'order/:id', component: OrderDetailsComponent, canActivate: [AuthGuard]},
   { path: 'order-history', component: OrderHistoryComponent, canActivate: [AuthGuard]},
   { path: 'observed', component: ObservedComponent, canActivate: [AuthGuard]},
