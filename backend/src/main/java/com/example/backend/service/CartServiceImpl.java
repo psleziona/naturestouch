@@ -80,8 +80,10 @@ public class CartServiceImpl implements CartService {
                                 .forEach(quantityProduct -> {
                                     if(quantity == 0)
                                         quantityProductRepository.delete(quantityProduct);
-                                    else
+                                    else {
                                         quantityProduct.setQuantity(quantity);
+//                                        quantityProductRepository.save(quantityProduct);
+                                    }
                                 });
                     else {
                         QuantityProduct qp = new QuantityProduct(p, quantity);

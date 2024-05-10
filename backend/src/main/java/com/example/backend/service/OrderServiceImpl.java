@@ -6,9 +6,12 @@ import com.example.backend.model.Order;
 import com.example.backend.model.OrderStatus;
 import com.example.backend.model.User;
 import com.example.backend.repository.OrderRepository;
+import com.example.backend.repository.QuantityProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,18 +20,21 @@ import java.util.Optional;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final AuthService authService;
-    private final ProductService productService;
-    private final CartService cartService;
+    private final QuantityProductRepository quantityProductRepository;
     @Override
     public void addOrder() {
         Order o = new Order();
+        o.setProducts(new ArrayList<>());
+        o.setBuyer(authService.getSessionUser());
+        o.setDateTime(LocalDateTime.now());
+        o.setStatus(OrderStatus.UNPAID);
+        var createdOrder = orderRepository.save(o);
         Cart userCart = authService.getSessionUser().getCart();
         userCart.getProducts().forEach(quantityProduct -> {
-            o.getProducts().add(quantityProduct);
-            productService.decreaseProductQuantity(quantityProduct.getProduct().getIdProduct(), quantityProduct.getQuantity());
+            quantityProduct.setOrder(createdOrder);
+            quantityProduct.setCart(null);
+            quantityProductRepository.save(quantityProduct);
         });
-        cartService.clearCart();
-        orderRepository.save(o);
     }
 
     @Override
