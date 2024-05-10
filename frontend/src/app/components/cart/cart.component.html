@@ -3,7 +3,7 @@
   <div *ngIf="cartItems.length === 0">Twój koszyk jest pusty!</div>
   <ul *ngIf="cartItems.length > 0">
     <li *ngFor="let item of cartItems">
-      <img [src]="item.product.filename" alt="{{ item.product.name }}" class="cart-item-image">
+      <img src="http://localhost:8080/images/{{ item.product.filename }}" alt="" width="120" height="90">
       <div>{{ item.product.name }} - {{ item.product.price }} zł ({{ item.quantity }})</div>
       <button (click)="changeQuantity(item.idCartProduct, item.quantity + 1)">+</button>
       <button (click)="changeQuantity(item.idCartProduct, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>

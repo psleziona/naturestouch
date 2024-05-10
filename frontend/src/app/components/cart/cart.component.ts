@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import {QuantityProduct} from "../../_models/quantity-product.model";
 import {Router} from "@angular/router";
 import {StorageService} from "../../_services/storage.service";
+import {ProductService} from "../../_services/product.service";
 
 @Component({
   selector: 'app-cart',
@@ -20,6 +21,7 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private storageService: StorageService,
+    private productService: ProductService,
     private router: Router) {}
 
   ngOnInit(): void {
