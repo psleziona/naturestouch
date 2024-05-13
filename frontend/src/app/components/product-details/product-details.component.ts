@@ -4,6 +4,7 @@ import { ProductService } from '../../_services/product.service';
 import { Product } from '../../_models/product.model';
 import { CommonModule } from '@angular/common';
 import { CartService } from "../../_services/cart.service";
+import {StorageService} from "../../_services/storage.service";
 
 @Component({
   selector: 'app-product-details',
@@ -18,7 +19,8 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public storageService: StorageService
   ) {}
 
   ngOnInit(): void {

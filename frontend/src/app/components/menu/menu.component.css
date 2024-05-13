@@ -1,0 +1,41 @@
+.icon-menu {
+  margin-left: auto;
+}
+
+i {
+  font-size: 34px;
+  padding: 10px;
+}
+
+i:hover {
+  color: #ccc;
+  cursor: pointer;
+}
+
+.cart-items {
+  display: inline-block;
+  position: absolute;
+  z-index: 4;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  top: 40px;
+  right: 136px;
+  cursor: pointer;
+}
+
+.cart-items:hover .fa-cart-shopping {
+  color: #ccc;
+}
+
+.cart-items:before {
+  content:'';
+  border-radius: 15px;
+  background-color: green;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: -1;
+  left: -7px;
+  top: -2px;
+}

@@ -28,16 +28,12 @@
       <li class="nav-item" *ngIf="!storageService.isLoggedIn()">
         <a class="nav-link" href="/register">Rejestracja</a>
       </li>
-      <div>
-        <i class="fa-solid fa-cart-shopping"></i>
-        <i class="fa-solid fa-right-from-bracket"></i>
-        <i class="fa-solid fa-heart"></i>
-      </div>
-
-
-      <li class="nav-item" *ngIf="storageService.isLoggedIn()">
-        <a class="nav-link" (click)="storageService.logout()" href="#">Wyloguj się</a>
-      </li>
     </ul>
+    <div *ngIf="storageService.isLoggedIn()" class="icon-menu">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <div class="cart-items">6</div>
+      <i class="fa-solid fa-heart"></i>
+      <i class="fa-solid fa-right-from-bracket" (click)="storageService.logout()"></i>
+    </div>
   </div>
 </nav>

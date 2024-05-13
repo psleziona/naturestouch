@@ -8,8 +8,8 @@
   <p>Najniższa cena z ostatnich 30 dni: {{ lowestPriceLast30Days }} zł</p>
 
 
-  <button class="btn-primary" (click)="addToCart(product)">Dodaj do koszyka</button>
-  <button class="btn-primary" (click)="addToObserved(product)">Obserwuj</button>
+  <button [disabled]="!storageService.isLoggedIn()" class="btn-primary" (click)="addToCart(product)">Dodaj do koszyka</button>
+  <button [disabled]="!storageService.isLoggedIn()" class="btn-primary" (click)="addToObserved(product)">Obserwuj</button>
 </div>
 
 <ng-template #noProductTemplate>

@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Product} from "../../_models/product.model";
 import {RouterLink} from "@angular/router";
+import {StorageService} from "../../_services/storage.service";
 
 @Component({
   selector: 'app-product-tile',
@@ -13,4 +14,5 @@ import {RouterLink} from "@angular/router";
 })
 export class ProductTileComponent {
   @Input({required: true}) product!: Product;
+  constructor(public storageService: StorageService) {}
 }
