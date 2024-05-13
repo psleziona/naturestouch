@@ -24,8 +24,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart getCart() {
-        User currentUser = authService.getSessionUser();
-        var c = currentUser.getCart();
+        User currentUser = authService.getSessionUser();;
         return currentUser.getCart();
     }
 
@@ -51,20 +50,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void deleteProduct(Integer idProduct) {
-        User currentUser = authService.getSessionUser();
-        Cart cart = currentUser.getCart();
-        productService.getProduct(idProduct)
-                .ifPresent(p -> {
-                    cart.getProducts().stream()
-                            .filter(quantityProduct -> quantityProduct.getProduct().getIdProduct().equals(idProduct))
-                            .forEach(quantityProduct -> {
-                                quantityProduct.decreaseQuantity();
-                                if(quantityProduct.getQuantity().equals(0)) {
-                                    quantityProductRepository.delete(quantityProduct);
-                                }
-                            });
-                });
-        cartRepository.save(cart);
+        quantityProductRepository.deleteById(idProduct);
     }
 
     @Override
@@ -82,7 +68,6 @@ public class CartServiceImpl implements CartService {
                                         quantityProductRepository.delete(quantityProduct);
                                     else {
                                         quantityProduct.setQuantity(quantity);
-//                                        quantityProductRepository.save(quantityProduct);
                                     }
                                 });
                     else {

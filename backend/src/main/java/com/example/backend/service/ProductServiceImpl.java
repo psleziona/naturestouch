@@ -9,11 +9,11 @@ import com.example.backend.repository.ProductRepository;
 import com.example.backend.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,17 +34,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getObservedProducts() {
+    public Set<Product> getObservedProducts() {
         User currentUser = authService.getSessionUser();
         return currentUser.getObserved();
     }
 
     @Override
     public void addProduct(Product product) {
-       Product createdProduct = productRepository.save(product);
-       ProductPriceHistory pph = new ProductPriceHistory(product, product.getPrice());
-       pph.setProduct(createdProduct);
-       productPriceHistoryRepository.save(pph);
+        Product createdProduct = productRepository.save(product);
+        ProductPriceHistory pph = new ProductPriceHistory(product, product.getPrice());
+        pph.setProduct(createdProduct);
+        productPriceHistoryRepository.save(pph);
     }
 
     @Override
@@ -67,8 +67,8 @@ public class ProductServiceImpl implements ProductService {
                     List<User> followers = p.getFollowers();
                     followers.remove(currentUser);
                     p.setFollowers(followers);
-                    List<Product> observed = currentUser.getObserved();
-                    var filtered = observed.stream().filter(product -> !Objects.equals(product.getIdProduct(), idProduct)).toList();
+                    Set<Product> observed = currentUser.getObserved();
+                    var filtered = observed.stream().filter(product -> !Objects.equals(product.getIdProduct(), idProduct)).collect(Collectors.toSet());
                     currentUser.setObserved(filtered);
                     productRepository.save(p);
                 });

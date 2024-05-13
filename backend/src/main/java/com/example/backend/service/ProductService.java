@@ -6,11 +6,12 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface ProductService {
     Optional<Product> getProduct(Integer idProduct);
     List<Product> getProducts();
-    List<Product> getObservedProducts();
+    Set<Product> getObservedProducts();
     void addProduct(Product product);
     void addProductToObserved(Integer idProduct);
     void deleteProductFromObserved(Integer idProduct);

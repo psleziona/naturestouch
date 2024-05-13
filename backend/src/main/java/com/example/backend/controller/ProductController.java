@@ -9,6 +9,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -27,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/observed")
-    List<Product> getObserved() {
+    Set<Product> getObserved() {
         return productService.getObservedProducts();
     }
 

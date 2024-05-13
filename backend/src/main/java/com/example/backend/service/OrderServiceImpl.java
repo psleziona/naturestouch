@@ -1,11 +1,9 @@
 package com.example.backend.service;
 
 import com.example.backend.auth.AuthService;
-import com.example.backend.model.Cart;
-import com.example.backend.model.Order;
-import com.example.backend.model.OrderStatus;
-import com.example.backend.model.User;
+import com.example.backend.model.*;
 import com.example.backend.repository.OrderRepository;
+import com.example.backend.repository.ProductRepository;
 import com.example.backend.repository.QuantityProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +19,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final AuthService authService;
     private final QuantityProductRepository quantityProductRepository;
+    private final ProductRepository productRepository;
     @Override
     public void addOrder() {
         Order o = new Order();
@@ -31,6 +30,9 @@ public class OrderServiceImpl implements OrderService {
         var createdOrder = orderRepository.save(o);
         Cart userCart = authService.getSessionUser().getCart();
         userCart.getProducts().forEach(quantityProduct -> {
+            Product p = quantityProduct.getProduct();
+            p.decreaseQuantity(quantityProduct.getQuantity());
+            productRepository.save(p);
             quantityProduct.setOrder(createdOrder);
             quantityProduct.setCart(null);
             quantityProductRepository.save(quantityProduct);

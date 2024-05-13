@@ -41,4 +41,8 @@ public class Product {
     @ManyToMany(mappedBy = "observed")
     @JsonIgnore
     private List<User> followers;
+
+    public void decreaseQuantity(Integer quantity) {
+        this.setQuantity(this.getQuantity() - quantity);
+    }
 }

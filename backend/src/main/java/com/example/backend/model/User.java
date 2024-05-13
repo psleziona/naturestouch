@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity(name = "users")
@@ -32,6 +33,6 @@ public class User {
             name = "observed_products",
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_product"))
-    private List<Product> observed;
+    private Set<Product> observed;
 
 }
