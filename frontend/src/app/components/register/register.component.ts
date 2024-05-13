@@ -3,6 +3,7 @@ import {AuthService} from "../../_services/auth.service";
 import {User} from "../../_models/user.model";
 import {FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
+import {StorageService} from "../../_services/storage.service";
 
 
 @Component({
@@ -15,7 +16,7 @@ import {Router} from "@angular/router";
 export class RegisterComponent {
   registerForm!: FormGroup;
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {}
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private storageService: StorageService) {}
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -41,6 +42,16 @@ export class RegisterComponent {
       city: this.registerForm.value.city ??  '',
       zipcode: this.registerForm.value.zipcode ?? '',
     }
-    this.authService.register(user).subscribe(res => this.router.navigateByUrl("/"));
+    this.authService.register(user).subscribe({
+      next: x => {
+        const tokenParts = x['token'].split('.');
+        const encodedPayload = tokenParts[1];
+        const decodedPayload = JSON.parse(atob(encodedPayload));
+        decodedPayload['token'] = x['token'];
+        this.storageService.saveUser(decodedPayload);
+        this.router.navigateByUrl("/");
+      },
+      error: err => alert("Błędne dane")
+    });
   }
 }

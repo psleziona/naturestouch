@@ -33,7 +33,7 @@ export class LoginComponent {
         this.storageService.saveUser(decodedPayload);
         this.router.navigateByUrl("/");
       },
-      error: err => console.log(err)
+      error: err => alert("Błędne dane")
     });
   }
 }

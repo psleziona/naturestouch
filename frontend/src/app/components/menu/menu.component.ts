@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import {AuthService} from "../../_services/auth.service";
+import {Component} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {StorageService} from "../../_services/storage.service";

@@ -42,7 +42,7 @@ export class CartComponent implements OnInit {
   removeFromCart(itemId: number | undefined) {
     this.cartService.deleteProductFromCart(itemId).subscribe({
       next: () => {
-        this.cartItems = this.cartItems.filter(item => item.product.idProduct !== itemId);
+        this.cartItems = this.cartItems.filter(item => item.idCartProduct !== itemId);
         this.calculateTotal();
       },
       error: err => console.error('Failed to remove item', err)

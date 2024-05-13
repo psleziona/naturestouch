@@ -14,16 +14,15 @@
         <option value="price-desc">Sortuj po cenie malejąco</option>
       </select>
     </div>
-
   </div>
   <div class="product-container">
     <div *ngFor="let product of filteredProducts" class="product-tile">
       <a [routerLink]="'/product/' + product.idProduct" style="text-decoration: none; color: inherit;">
-      <app-product-tile [product]="product"></app-product-tile>
+        <app-product-tile [product]="product"></app-product-tile>
       </a>
     </div>
   </div>
-<div>
+  <div>
     <ng-template #noProductsTemplate>
       <p class="alert-danger">Brak dostępnych produktów.</p>
     </ng-template>

@@ -14,7 +14,7 @@ export class AuthService {
   }
 
   register(client: User) {
-    return this.http.post<User>(this.authUrl + "/register", client);
+    return this.http.post<any>(this.authUrl + "/register", client);
   }
 
   editUserData(user: User) {

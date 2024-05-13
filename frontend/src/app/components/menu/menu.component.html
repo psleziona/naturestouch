@@ -2,9 +2,6 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/">Strona główna</a>
-      </li>
-      <li class="nav-item active">
         <a class="nav-link" routerLink="/products">Produkty</a>
       </li>
       <li class="nav-item" *ngIf="storageService.isLoggedIn() && !storageService.isAdmin()">
@@ -31,6 +28,13 @@
       <li class="nav-item" *ngIf="!storageService.isLoggedIn()">
         <a class="nav-link" href="/register">Rejestracja</a>
       </li>
+      <div>
+        <i class="fa-solid fa-cart-shopping"></i>
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <i class="fa-solid fa-heart"></i>
+      </div>
+
+
       <li class="nav-item" *ngIf="storageService.isLoggedIn()">
         <a class="nav-link" (click)="storageService.logout()" href="#">Wyloguj się</a>
       </li>
