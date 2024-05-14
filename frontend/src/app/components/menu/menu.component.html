@@ -5,7 +5,7 @@
         <a class="nav-link" routerLink="/products">Produkty</a>
       </li>
       <li class="nav-item" *ngIf="storageService.isLoggedIn() && !storageService.isAdmin()">
-        <a class="nav-link" routerLink="/cart">Koszyk</a>
+
       </li>
       <li class="nav-item" *ngIf="storageService.isLoggedIn() && !storageService.isAdmin()">
         <a class="nav-link" href="/order-history">Historia zamówień</a>
@@ -16,12 +16,6 @@
       <li class="nav-item" *ngIf="storageService.isLoggedIn() && storageService.isAdmin()">
         <a class="nav-link" href="/add-product">Dodaj produkt</a>
       </li>
-      <li class="nav-item" *ngIf="storageService.isLoggedIn() && !storageService.isAdmin()">
-        <a class="nav-link" href="/observed">Obserwowane</a>
-      </li>
-      <li class="nav-item" *ngIf="storageService.isLoggedIn() && !storageService.isAdmin()">
-        <a class="nav-link" href="/user-data-edit">Edytuj dane</a>
-      </li>
       <li class="nav-item" *ngIf="!storageService.isLoggedIn()">
         <a class="nav-link" href="/login">Logowanie</a>
       </li>
@@ -30,9 +24,9 @@
       </li>
     </ul>
     <div *ngIf="storageService.isLoggedIn()" class="icon-menu">
-      <i class="fa-solid fa-cart-shopping"></i>
-      <div class="cart-items">6</div>
-      <i class="fa-solid fa-heart"></i>
+      <a href="/user-data-edit"><i class="fa-regular fa-user"></i></a>
+      <app-cart-icon></app-cart-icon>
+      <a href="/observed"><i class="fa-solid fa-heart"></i></a>
       <i class="fa-solid fa-right-from-bracket" (click)="storageService.logout()"></i>
     </div>
   </div>
