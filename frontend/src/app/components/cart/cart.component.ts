@@ -21,7 +21,6 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private storageService: StorageService,
-    private productService: ProductService,
     private router: Router) {}
 
   ngOnInit(): void {
@@ -44,6 +43,7 @@ export class CartComponent implements OnInit {
       next: () => {
         this.cartItems = this.cartItems.filter(item => item.idCartProduct !== itemId);
         this.calculateTotal();
+        this.cartService.onCartChange.emit('');
       },
       error: err => console.error('Failed to remove item', err)
     });
@@ -60,6 +60,7 @@ export class CartComponent implements OnInit {
             this.cartItems[index].quantity = quantity;
             this.calculateTotal();
           }
+          this.cartService.onCartChange.emit('');
         },
         error: err => console.error('Error updating quantity', err)
       });
@@ -71,6 +72,7 @@ export class CartComponent implements OnInit {
       this.cartItems = [];
       this.calculateTotal();
       console.log('Cart cleared');
+      this.cartService.onCartChange.emit('');
     }, error => console.error('Failed to clear cart', error));
   }
 

@@ -40,7 +40,7 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.apiUrl}/observed`);
   }
 
-  addProductToObserved(idProduct: number) {
+    addProductToObserved(idProduct: number | undefined) {
     return this.http.post(`${this.apiUrl}/observed/${idProduct}`, {});
   }
 

@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
-import {BehaviorSubject, Subject} from "rxjs";
-import {CartService} from "./cart.service";
+import {Injectable} from '@angular/core';
+import {Subject} from "rxjs";
 
 const USER_KEY = 'auth-user';
 
@@ -9,16 +8,7 @@ const USER_KEY = 'auth-user';
 })
 export class StorageService {
   loggedIn = new Subject<boolean>();
-  cartItems = new BehaviorSubject<number>(1);
-  constructor(private cartService: CartService) { }
-
-  public getUserCart() {
-    this.cartService.getCartItems()
-      .subscribe(cart => {
-        const cartItemsNumber = cart.products.reduce((total, next) => total + next.quantity, 0);
-        this.cartItems.next(cartItemsNumber);
-      });
-  }
+  constructor() { }
 
   public logout() {
     window.sessionStorage.clear();
@@ -37,14 +27,6 @@ export class StorageService {
     if(user)
       return JSON.parse(user);
     return {};
-  }
-
-  public getToken() {
-    const user = window.sessionStorage.getItem(USER_KEY);
-    if(user) {
-      const u = JSON.parse(user);
-      return u['token'];
-    }
   }
 
   public getExpirationDate() {

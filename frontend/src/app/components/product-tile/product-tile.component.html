@@ -5,7 +5,7 @@
   <div class="product-info">
     <p>{{ product.name }}</p>
     <p>{{ product.price }} zł</p>
-    <i class="fa-solid fa-cart-plus"></i>
-    <i class="fa-solid fa-heart-circle-plus"></i>
+    <i (click)="addToCart(product.idProduct)" class="fa-solid fa-cart-plus"></i>
+    <i (click)="addToObserved(product.idProduct)" class="fa-solid fa-heart-circle-plus"></i>
   </div>
 </div>

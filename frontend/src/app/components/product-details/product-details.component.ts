@@ -60,7 +60,7 @@ export class ProductDetailsComponent implements OnInit {
       return;
     }
     this.cartService.addProductToCart(product.idProduct).subscribe({
-      next: () => console.log('Product added to cart.'),
+      next: () => this.cartService.onCartChange.emit(''),
       error: (err) => console.error('Failed to add product to cart', err)
     });
   }
@@ -71,7 +71,7 @@ export class ProductDetailsComponent implements OnInit {
       return;
     }
     this.productService.addProductToObserved(product.idProduct).subscribe({
-      next: () => console.log('Product added to observed list.'),
+      next: () => () => this.cartService.onCartChange.emit(''),
       error: (err) => console.error('Failed to add product to observed', err)
     });
   }

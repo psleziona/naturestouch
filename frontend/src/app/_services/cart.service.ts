@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import { Cart } from '../_models/cart.model';
@@ -9,6 +9,7 @@ import {iterator} from "rxjs/internal/symbol/iterator";
 })
 export class CartService {
   private apiUrl = 'http://localhost:8080/api/cart';
+  onCartChange : EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
@@ -16,7 +17,7 @@ export class CartService {
     return this.http.get<Cart>(this.apiUrl);
   }
 
-  addProductToCart(idProduct: number): Observable<void> {
+  addProductToCart(idProduct: number | undefined): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/add/${idProduct}`, {});
   }
 

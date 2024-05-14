@@ -6,3 +6,15 @@
   margin: auto;
 }
 
+p {
+  margin: 2px;
+}
+
+i:hover {
+  color: #85d4f6;
+  cursor: pointer;
+}
+
+.fa-heart-circle-plus {
+  float: right;
+}
