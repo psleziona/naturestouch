@@ -21,7 +21,7 @@
 }
 
 .sidebar.open {
-  flex-basis: 20%;
+  flex-basis: 25%;
   cursor: auto;
 }
 

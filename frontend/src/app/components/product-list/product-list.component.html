@@ -2,12 +2,12 @@
   <div class="sidebar" (click)="toggleFilters($event)">
     <h2 class="sidebar-header">FILTRY</h2>
     <div class="sorting-container">
-      <select [(ngModel)]="selectedCategory" (change)="filterByCategory()" class="category-select">
+      <select [(ngModel)]="selectedCategory" (change)="filterProducts()" class="category-select">
         <option value="">Wszystkie kategorie</option>
         <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
       </select>
 
-      <select [(ngModel)]="sortOrder" (change)="sortProducts()" class="sorting-select">
+      <select [(ngModel)]="sortOrder" (change)="filterProducts()" class="sorting-select">
         <option value="">Sortowanie</option>
         <option value="name-asc">Sortuj po nazwie (A-Z)</option>
         <option value="name-desc">Sortuj po nazwie (Z-A)</option>
@@ -16,10 +16,10 @@
       </select>
 
       <label for="minPrice">Cena minimalna</label>
-      <input [min]="minPriceStart" [(ngModel)]="minPrice" type="number" id="minPrice" (change)="filterByPrice()">
+      <input [min]="minPriceStart" [(ngModel)]="minPrice" type="number" id="minPrice" (change)="filterProducts()">
 
       <label for="maxPrice">Cena maksymalna</label>
-      <input [max]="maxPriceStart" [(ngModel)]="maxPrice" type="number" id="maxPrice" (change)="filterByPrice()">
+      <input [max]="maxPriceStart" [(ngModel)]="maxPrice" type="number" id="maxPrice" (change)="filterProducts()">
 
 
     </div>

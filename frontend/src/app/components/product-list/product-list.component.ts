@@ -21,8 +21,8 @@ import { RouterModule } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
   products!: Product[];
-  sortOrder: string = '';
   filteredProducts: Product[] = [];
+  sortOrder: string = '';
   categories: string[] = [];
   selectedCategory = '';
   minPrice : number = 0;
@@ -52,22 +52,27 @@ export class ProductListComponent implements OnInit {
     this.maxPriceStart = this.maxPrice;
   }
 
-  filterByCategory() {
-    if (!this.selectedCategory || this.selectedCategory === '') {
-      this.filteredProducts = [...this.products]; // Resets to the full list
-    } else {
-      this.filteredProducts = this.products.filter(p => p.category === this.selectedCategory);
-    }
-    this.sortProducts();
-  }
-
   extractCategories() {
     const categorySet = new Set(this.products.map(p => p.category));
     this.categories = Array.from(categorySet);
   }
 
-  sortProducts() {
-    this.filteredProducts = this.filteredProducts.sort((a, b) => {
+  filterByCategory(p: Product[]) {
+    let filtered : Product[];
+    if (!this.selectedCategory || this.selectedCategory === '') {
+      filtered = [...this.products];
+    } else {
+      filtered = p.filter(product => product.category === this.selectedCategory);
+    }
+    return filtered;
+  }
+
+  filterByPrice(p: Product[]) {
+    return p.filter(product => product.price >= this.minPrice && product.price <= this.maxPrice);
+  }
+
+  sortProducts(p: Product[]) {
+    this.filteredProducts = p.sort((a, b) => {
       switch (this.sortOrder) {
         case 'name-asc':
           return a.name.localeCompare(b.name);
@@ -88,8 +93,9 @@ export class ProductListComponent implements OnInit {
     e.target.classList.toggle('open');
   }
 
-  filterByPrice() {
-    this.filteredProducts = this.products.filter(p => p.price >= this.minPrice && p.price <= this.maxPrice);
-    this.sortProducts();
+
+  filterProducts() {
+    this.sortProducts(this.filterByPrice(this.filterByCategory(this.products)));
   }
+
 }

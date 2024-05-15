@@ -1,5 +1,6 @@
 <div>
   <button class="btn btn-primary" (click)="backToOrderHistory()">Cofnij do historii zamówień</button>
+  <button class="btn btn-danger" *ngIf="order?.status == 'UNPAID'" (click)="cancelOrder(order?.idOrder)">Anuluj zamówienie</button>
   <p>Data zamówienia: {{ order?.dateTime | date: 'medium'}}</p>
   <p>Status: {{ order?.status }}</p>
   <p>Zawartość:</p>

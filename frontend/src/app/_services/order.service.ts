@@ -23,7 +23,7 @@ export class OrderService {
     return this.http.get<Order>(`${this.apiUrl}/${idOrder}`);
   }
 
-  cancelOrder(idOrder: number): Observable<void> {
+  cancelOrder(idOrder: number | undefined): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/cancel/${idOrder}`, {});
   }
 }
