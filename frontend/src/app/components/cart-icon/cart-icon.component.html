@@ -1,4 +1,4 @@
 <a routerLink="/cart">
   <i class="fa-solid fa-cart-shopping"></i>
 </a>
-<div class="cart-items"><span>{{ productsInCart }}</span></div>
+<div class="cart-items" *ngIf="productsInCart != null && productsInCart > 0"><span>{{ productsInCart }}</span></div>

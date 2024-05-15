@@ -25,6 +25,10 @@ export class ProductListComponent implements OnInit {
   filteredProducts: Product[] = [];
   categories: string[] = [];
   selectedCategory = '';
+  minPrice : number = 0;
+  maxPrice : number = 0;
+  minPriceStart : number = 0;
+  maxPriceStart : number = 0;
 
   constructor(private productService: ProductService) {}
 
@@ -37,7 +41,15 @@ export class ProductListComponent implements OnInit {
       this.products = res;
       this.filteredProducts = res;
       this.extractCategories();
+      this.setPriceRange();
     });
+  }
+
+  setPriceRange() {
+    this.minPrice = Math.min.apply(null, this.products.map(p => p.price));
+    this.maxPrice = Math.max.apply(null, this.products.map(p => p.price));
+    this.minPriceStart = this.minPrice;
+    this.maxPriceStart = this.maxPrice;
   }
 
   filterByCategory() {
@@ -69,5 +81,15 @@ export class ProductListComponent implements OnInit {
           return 0;
       }
     });
+  }
+
+  toggleFilters(e: Event) {
+      // @ts-ignore
+    e.target.classList.toggle('open');
+  }
+
+  filterByPrice() {
+    this.filteredProducts = this.products.filter(p => p.price >= this.minPrice && p.price <= this.maxPrice);
+    this.sortProducts();
   }
 }

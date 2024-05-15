@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {OrderService} from "../../_services/order.service";
 import {Order} from "../../_models/order.model";
-import {NgForOf} from "@angular/common";
+import {DatePipe, NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 
 @Component({
@@ -9,7 +9,8 @@ import {RouterLink} from "@angular/router";
   standalone: true,
   imports: [
     NgForOf,
-    RouterLink
+    RouterLink,
+    DatePipe
   ],
   templateUrl: './order-history.component.html',
   styleUrl: './order-history.component.css'

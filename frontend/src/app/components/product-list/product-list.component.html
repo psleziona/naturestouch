@@ -1,5 +1,6 @@
 <div class="main-container">
-  <div class="sidebar">
+  <div class="sidebar" (click)="toggleFilters($event)">
+    <h2 class="sidebar-header">FILTRY</h2>
     <div class="sorting-container">
       <select [(ngModel)]="selectedCategory" (change)="filterByCategory()" class="category-select">
         <option value="">Wszystkie kategorie</option>
@@ -13,8 +14,15 @@
         <option value="price-asc">Sortuj po cenie rosnąco</option>
         <option value="price-desc">Sortuj po cenie malejąco</option>
       </select>
-    </div>
 
+      <label for="minPrice">Cena minimalna</label>
+      <input [min]="minPriceStart" [(ngModel)]="minPrice" type="number" id="minPrice" (change)="filterByPrice()">
+
+      <label for="maxPrice">Cena maksymalna</label>
+      <input [max]="maxPriceStart" [(ngModel)]="maxPrice" type="number" id="maxPrice" (change)="filterByPrice()">
+
+
+    </div>
   </div>
   <div class="product-container">
     <div *ngFor="let product of filteredProducts" class="product-tile">

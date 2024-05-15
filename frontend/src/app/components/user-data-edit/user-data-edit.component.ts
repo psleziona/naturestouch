@@ -36,15 +36,15 @@ export class UserDataEditComponent {
       });
 
     this.passwordChangeForm = this.fb.group({
-      password: [''],
-      password2: ['']
+      password: ['', Validators.required],
+      password2: ['', Validators.required]
     });
   }
 
   changePassword() {
     const pass1 = this.passwordChangeForm.value.password;
     const pass2 = this.passwordChangeForm.value.password2;
-    if(pass1 === pass2) {
+    if(pass1 === pass2 && this.passwordChangeForm.valid) {
       const body = {
         'email': '',
         'password': pass1
@@ -55,7 +55,7 @@ export class UserDataEditComponent {
           this.router.navigateByUrl("/");
         });
     } else
-      alert('Hasła muszą być takie same');
+      alert('Hasła muszą być takie same i nie mogą być puste');
   }
 
   editUser() {

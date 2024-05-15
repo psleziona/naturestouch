@@ -7,7 +7,7 @@
   </tr>
   <tr *ngFor="let o of orders">
     <td><a routerLink="/order/{{ o.idOrder }}">{{ o.idOrder }}</a></td>
-    <td>{{ o.dateTime }}</td>
+    <td>{{ o.dateTime | date: 'medium'}}</td>
     <td>{{ o.status }}</td>
   </tr>
 </table>

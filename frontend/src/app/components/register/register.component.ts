@@ -20,18 +20,23 @@ export class RegisterComponent {
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      street: ['', Validators.required],
-      houseNumber: ['', Validators.required],
-      city: ['', Validators.required],
-      zipcode: ['', Validators.required]
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      street: ['', [Validators.required]],
+      houseNumber: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      zipcode: ['', [Validators.required]]
       })
   }
 
   register() {
+    if(!this.registerForm.valid) {
+      alert('Błędnie wypełniony formularz');
+      return;
+    }
+
     const user : User = {
       firstName: this.registerForm.value.firstName ?? '',
       lastName: this.registerForm.value.lastName ?? '',
@@ -51,7 +56,7 @@ export class RegisterComponent {
         this.storageService.saveUser(decodedPayload);
         this.router.navigateByUrl("/");
       },
-      error: err => alert("Błędne dane")
+      error: err => console.log(err)
     });
   }
 }

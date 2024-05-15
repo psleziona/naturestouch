@@ -13,15 +13,29 @@ body {
   padding: 20px;
   margin: auto;
   border-radius: 8px;
+  display: grid;
+  grid-template-columns: 30% auto;
+  grid-template-rows: 50% auto;
 }
 
-.product-info img {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-  max-height: 500px;
-  max-width: 500px;
+.product {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  padding: 0 20px;
+}
 
+.image {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.buttons {
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+.image img {
+  width: 100%;
 }
 
 h2 {
@@ -42,12 +56,12 @@ p {
   border: none;
   padding: 10px 20px;
   text-align: center;
-  display: inline-block;
+  display: block;
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  width: calc(50% - 4px);
-  margin: 5px 2px;
+  width: calc(30% - 4px);
+  margin: 5px 20px;
   transition: background-color 0.3s ease;
 }
 

@@ -15,6 +15,14 @@ export class ProductService {
     return this.http.get<Product[]>(this.apiUrl);
   }
 
+  getLastProducts() {
+    return this.http.get<Product[]>(this.apiUrl + "/last");
+  }
+
+  getHotProducts() {
+    return this.http.get<Product[]>(this.apiUrl + "/hot");
+  }
+
   getProduct(idProduct: number): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${idProduct}`);
   }

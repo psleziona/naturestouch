@@ -1,2 +1,16 @@
-<p>Witaj w naszym sklepie</p>
-
+<div>
+  <h3>Najczęściej kupowane</h3>
+  <div class="product-container">
+    <div *ngFor="let p of hotProducts" class="product-tile">
+      <app-product-tile [product]="p"></app-product-tile>
+    </div>
+  </div>
+</div>
+<div *ngIf="lastProducts.length > 0">
+  <h3>Ostatnie sztuki</h3>
+  <div class="product-container">
+    <div *ngFor="let p of lastProducts" class="product-tile">
+      <app-product-tile [product]="p"></app-product-tile>
+    </div>
+  </div>
+</div>

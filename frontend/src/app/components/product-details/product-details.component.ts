@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { ProductService } from '../../_services/product.service';
 import { Product } from '../../_models/product.model';
 import { CommonModule } from '@angular/common';
@@ -20,7 +20,8 @@ export class ProductDetailsComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private route: ActivatedRoute,
-    public storageService: StorageService
+    public storageService: StorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -59,9 +60,16 @@ export class ProductDetailsComponent implements OnInit {
       console.error('Product ID is missing or product is undefined');
       return;
     }
+
     this.cartService.addProductToCart(product.idProduct).subscribe({
-      next: () => this.cartService.onCartChange.emit(''),
-      error: (err) => console.error('Failed to add product to cart', err)
+      next: () => {
+        this.cartService.onCartChange.emit('');
+        alert('Produkt dodano do koszyka');
+      },
+      error: (err) => {
+        if(!this.storageService.isLoggedIn())
+          this.router.navigateByUrl('/login')
+      }
     });
   }
 
@@ -71,8 +79,11 @@ export class ProductDetailsComponent implements OnInit {
       return;
     }
     this.productService.addProductToObserved(product.idProduct).subscribe({
-      next: () => () => this.cartService.onCartChange.emit(''),
-      error: (err) => console.error('Failed to add product to observed', err)
+      next: () => alert('Dodano do obserwowanych'),
+      error: (err) => {
+        if(!this.storageService.isLoggedIn())
+          this.router.navigateByUrl('/login')
+      }
     });
   }
 }
