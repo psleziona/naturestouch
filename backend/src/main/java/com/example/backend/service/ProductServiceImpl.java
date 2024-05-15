@@ -3,17 +3,16 @@ package com.example.backend.service;
 import com.example.backend.auth.AuthService;
 import com.example.backend.model.Product;
 import com.example.backend.model.ProductPriceHistory;
+import com.example.backend.model.QuantityProduct;
 import com.example.backend.model.User;
 import com.example.backend.repository.ProductPriceHistoryRepository;
 import com.example.backend.repository.ProductRepository;
+import com.example.backend.repository.QuantityProductRepository;
 import com.example.backend.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +22,7 @@ public class ProductServiceImpl implements ProductService {
     private final AuthService authService;
     private final UserRepository userRepository;
     private final ProductPriceHistoryRepository productPriceHistoryRepository;
+    private final QuantityProductRepository quantityProductRepository;
     @Override
     public Optional<Product> getProduct(Integer idProduct) {
         return productRepository.findById(idProduct);
@@ -31,6 +31,32 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProducts() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> getLastProducts() {
+        return productRepository.findAll()
+                .stream().filter(p -> p.getQuantity() <= 10)
+                .limit(4)
+                .toList();
+    }
+
+    @Override
+    public List<Product> getHotProducts() {
+        return quantityProductRepository.findAll()
+                .stream().filter(qp -> qp.getOrder() != null)
+                .collect(Collectors.groupingBy(QuantityProduct::getProduct, Collectors.summarizingInt(QuantityProduct::getQuantity)))
+                .entrySet()
+                .stream()
+                .sorted((o1, o2) -> {
+                    if(o1.getValue().getSum() > o2.getValue().getSum())
+                        return 1;
+                    else return -1;
+                })
+                .limit(4)
+                .map(Map.Entry::getKey)
+                .toList();
+
     }
 
     @Override

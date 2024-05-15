@@ -27,6 +27,16 @@ public class ProductController {
         return productService.getProducts();
     }
 
+    @GetMapping("/products/last")
+    List<Product> getLastProducts() {
+        return productService.getLastProducts();
+    }
+
+    @GetMapping("/products/hot")
+    List<Product> getHotProducts() {
+        return productService.getHotProducts();
+    }
+
     @GetMapping("/products/observed")
     Set<Product> getObserved() {
         return productService.getObservedProducts();

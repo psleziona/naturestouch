@@ -11,6 +11,8 @@ import java.util.Set;
 public interface ProductService {
     Optional<Product> getProduct(Integer idProduct);
     List<Product> getProducts();
+    List<Product> getLastProducts();
+    List<Product> getHotProducts();
     Set<Product> getObservedProducts();
     void addProduct(Product product);
     void addProductToObserved(Integer idProduct);
