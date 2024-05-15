@@ -56,6 +56,14 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.findById(idOrder)
                 .ifPresent(o -> {
                     o.setStatus(status);
+                    if(status.equals(OrderStatus.CANCELED)) {
+                        o.getProducts().forEach(quantityProduct -> {
+                            Product p = quantityProduct.getProduct();
+                            Integer quantity = p.getQuantity();
+                            p.setQuantity(quantity + quantityProduct.getQuantity());
+                            productRepository.save(p);
+                        });
+                    }
                     orderRepository.save(o);
                 });
     }
