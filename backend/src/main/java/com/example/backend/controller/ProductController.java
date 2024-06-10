@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Product;
+import com.example.backend.model.ProductCategory;
 import com.example.backend.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +42,12 @@ public class ProductController {
     @GetMapping("/products/observed")
     Set<Product> getObserved() {
         return productService.getObservedProducts();
+    }
+
+    @GetMapping("/products/categories")
+    List<String> getCategories() {
+        return Arrays.stream(ProductCategory.values()).
+                map(ProductCategory::toString).toList();
     }
 
     @PostMapping("/products/observed/{idProduct}")
