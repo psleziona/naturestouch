@@ -1,4 +1,7 @@
 <div *ngIf="product; else noProductTemplate" class="product-info">
+  <div class="app-modal" *ngIf="showAlert">
+    {{alertMsg}}
+  </div>
   <div class="image">
     <img src="http://localhost:8080/images/{{ product.filename }}" alt="">
   </div>
@@ -13,7 +16,6 @@
     <button class="btn-primary" (click)="addToObserved(product)">Obserwuj</button>
   </div>
 </div>
-
 <ng-template #noProductTemplate>
   <p class="alert-danger">Nie znaleziono produktu.</p>
 </ng-template>

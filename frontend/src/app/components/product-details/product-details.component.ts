@@ -16,6 +16,8 @@ import {StorageService} from "../../_services/storage.service";
 export class ProductDetailsComponent implements OnInit {
   product: Product | undefined;
   lowestPriceLast30Days: number | undefined;
+  showAlert = false;
+  alertMsg = '';
   constructor(
     private productService: ProductService,
     private cartService: CartService,
@@ -64,7 +66,7 @@ export class ProductDetailsComponent implements OnInit {
     this.cartService.addProductToCart(product.idProduct).subscribe({
       next: () => {
         this.cartService.onCartChange.emit('');
-        alert('Produkt dodano do koszyka');
+        this.showAlertInfo("Produkt dodano do koszyka");
       },
       error: (err) => {
         if(!this.storageService.isLoggedIn())
@@ -79,11 +81,19 @@ export class ProductDetailsComponent implements OnInit {
       return;
     }
     this.productService.addProductToObserved(product.idProduct).subscribe({
-      next: () => alert('Dodano do obserwowanych'),
+      next: () => this.showAlertInfo("Produkt dodano do obserwowanych"),
       error: (err) => {
         if(!this.storageService.isLoggedIn())
           this.router.navigateByUrl('/login')
       }
     });
+  }
+
+  showAlertInfo(info: string) {
+    this.showAlert = true;
+    this.alertMsg = info;
+    setTimeout(() => {
+      this.showAlert = false
+    }, 300)
   }
 }

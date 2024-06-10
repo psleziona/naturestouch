@@ -1,12 +1,10 @@
 <div class="main-container">
+  <div class="app-modal" *ngIf="showAlert">
+    {{alertMsg}}
+  </div>
   <div class="sidebar" (click)="toggleFilters($event)">
     <h2 class="sidebar-header">FILTRY</h2>
     <div class="sorting-container">
-      <select [(ngModel)]="selectedCategory" (change)="filterProducts()" class="category-select">
-        <option value="">Wszystkie kategorie</option>
-        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-      </select>
-
       <select [(ngModel)]="sortOrder" (change)="filterProducts()" class="sorting-select">
         <option value="">Sortowanie</option>
         <option value="name-asc">Sortuj po nazwie (A-Z)</option>
@@ -20,13 +18,11 @@
 
       <label for="maxPrice">Cena maksymalna</label>
       <input [max]="maxPriceStart" [(ngModel)]="maxPrice" type="number" id="maxPrice" (change)="filterProducts()">
-
-
     </div>
   </div>
   <div class="product-container">
     <div *ngFor="let product of filteredProducts" class="product-tile">
-      <app-product-tile [product]="product"></app-product-tile>
+      <app-product-tile (onAdd)="showAlertInfo($event)" [product]="product"></app-product-tile>
     </div>
   </div>
 <div>

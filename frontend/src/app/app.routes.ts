@@ -17,7 +17,7 @@ import {RegisterComponent} from "./components/register/register.component";
 import {HomeComponent} from "./components/home/home.component";
 
 export const routes: Routes = [
-  { path: 'products', component: ProductListComponent},
+  { path: 'products/:category', component: ProductListComponent},
   { path: 'product/:id', component: ProductDetailsComponent},
   { path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard, AdminGuard]},
   { path: 'cart', component: CartComponent },

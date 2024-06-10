@@ -4,11 +4,12 @@ import {AuthService} from "../../_services/auth.service";
 import {StorageService} from "../../_services/storage.service";
 import {Router} from "@angular/router";
 import {CartService} from "../../_services/cart.service";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+    imports: [ReactiveFormsModule, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

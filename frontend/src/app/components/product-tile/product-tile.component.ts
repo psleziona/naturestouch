@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Product} from "../../_models/product.model";
 import {Router, RouterLink} from "@angular/router";
 import {StorageService} from "../../_services/storage.service";
@@ -16,6 +16,7 @@ import {ProductService} from "../../_services/product.service";
 })
 export class ProductTileComponent {
   @Input({required: true}) product!: Product;
+  @Output() onAdd = new EventEmitter();
   constructor(public storageService: StorageService,
               private cartService: CartService,
               private productService: ProductService,
@@ -25,7 +26,7 @@ export class ProductTileComponent {
     this.cartService.addProductToCart(idProduct).subscribe({
       next: () => {
         this.cartService.onCartChange.emit('');
-        alert('Produkt dodano do koszyka');
+        this.onAdd.emit('Dodano do koszyka')
       },
       error: (err) => {
         if(!this.storageService.isLoggedIn())
@@ -36,7 +37,7 @@ export class ProductTileComponent {
 
   addToObserved(idProduct: number | undefined) {
     this.productService.addProductToObserved(idProduct).subscribe({
-      next: () => alert('Dodano do obserwowanych'),
+      next: () => this.onAdd.emit('Dodano do obserwowanych'),
       error: (err) => {
         if(!this.storageService.isLoggedIn())
           this.router.navigateByUrl('/login')

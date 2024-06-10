@@ -4,8 +4,7 @@ import { Product } from "../../_models/product.model";
 import { ProductTileComponent } from "../product-tile/product-tile.component";
 import { NgForOf, CommonModule } from "@angular/common";
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-
+import {ActivatedRoute, Route, Router, RouterModule} from '@angular/router';
 @Component({
   selector: 'app-product-list',
   standalone: true,
@@ -23,24 +22,29 @@ export class ProductListComponent implements OnInit {
   products!: Product[];
   filteredProducts: Product[] = [];
   sortOrder: string = '';
-  categories: string[] = [];
-  selectedCategory = '';
   minPrice : number = 0;
   maxPrice : number = 0;
   minPriceStart : number = 0;
   maxPriceStart : number = 0;
+  category = '';
+  showAlert = false;
+  alertMsg = '';
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.loadProducts();
+    this.route.params.subscribe(
+      x =>{
+        this.category = x['category'];
+        this.loadProducts();
+      }
+    )
   }
 
   loadProducts() {
     this.productService.getProducts().subscribe(res => {
-      this.products = res;
-      this.filteredProducts = res;
-      this.extractCategories();
+      this.products = res.filter(p => p.category === this.category);
+      this.filteredProducts = this.products;
       this.setPriceRange();
     });
   }
@@ -50,21 +54,6 @@ export class ProductListComponent implements OnInit {
     this.maxPrice = Math.max.apply(null, this.products.map(p => p.price));
     this.minPriceStart = this.minPrice;
     this.maxPriceStart = this.maxPrice;
-  }
-
-  extractCategories() {
-    const categorySet = new Set(this.products.map(p => p.category));
-    this.categories = Array.from(categorySet);
-  }
-
-  filterByCategory(p: Product[]) {
-    let filtered : Product[];
-    if (!this.selectedCategory || this.selectedCategory === '') {
-      filtered = [...this.products];
-    } else {
-      filtered = p.filter(product => product.category === this.selectedCategory);
-    }
-    return filtered;
   }
 
   filterByPrice(p: Product[]) {
@@ -95,7 +84,15 @@ export class ProductListComponent implements OnInit {
 
 
   filterProducts() {
-    this.sortProducts(this.filterByPrice(this.filterByCategory(this.products)));
+    this.sortProducts(this.filterByPrice(this.products));
+  }
+
+  showAlertInfo(info: string) {
+    this.showAlert = true;
+    this.alertMsg = info;
+    setTimeout(() => {
+      this.showAlert = false
+    }, 300)
   }
 
 }

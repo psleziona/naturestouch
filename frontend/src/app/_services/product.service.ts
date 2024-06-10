@@ -55,4 +55,8 @@ export class ProductService {
   removeProductFromObserved(idProduct: number | undefined) {
     return this.http.delete(`${this.apiUrl}/observed/${idProduct}`);
   }
+
+  getProductCategories() {
+    return this.http.get<string[]>(`${this.apiUrl}/categories`);
+  }
 }

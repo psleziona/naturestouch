@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {StorageService} from "../../_services/storage.service";
 import {CartIconComponent} from "../cart-icon/cart-icon.component";
+import {ProductService} from "../../_services/product.service";
 
 @Component({
   selector: 'app-menu',
@@ -10,11 +11,19 @@ import {CartIconComponent} from "../cart-icon/cart-icon.component";
   imports: [
     NgIf,
     RouterLink,
-    CartIconComponent
+    CartIconComponent,
+    NgForOf
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
-  constructor(public storageService: StorageService) {}
+  productCategories? : string[];
+  constructor(public storageService: StorageService, private productService: ProductService) {}
+
+  ngOnInit() {
+    this.productService.getProductCategories().subscribe(
+      categories => this.productCategories = categories,
+    )
+  }
 }
